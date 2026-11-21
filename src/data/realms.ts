@@ -39,11 +39,11 @@ export interface CategoryOption {
  * "Expose 2 to 5 mutually exclusive options as visible radio buttons when choices are fewer than six").
  */
 export const REALM_CATEGORIES: CategoryOption[] = [
-  { id: 'all', label: 'All 13 Archways', runeIcon: '✦' },
+  { id: 'all', label: 'All 15 Archways', runeIcon: '✦' },
   { id: 'stories', label: 'Novels & Crossroads', runeIcon: '📖' },
   { id: 'music', label: 'Music & Bands', runeIcon: '🎧' },
   { id: 'lore', label: 'Lore, Space & Backstage', runeIcon: '🔮' },
-  { id: 'hub', label: 'Hub, Games & Studio', runeIcon: '🏰' }
+  { id: 'hub', label: 'Hub, Apps & Stories Behind', runeIcon: '🏰' }
 ];
 
 export interface UniverseRealm {
@@ -62,16 +62,42 @@ export interface UniverseRealm {
 export const UNIVERSE_REALMS: UniverseRealm[] = [
   {
     id: 'hub',
-    name: 'RaggieSoft Hub',
+    name: 'RaggieSoft Hub (Front Door)',
     archwayTitle: 'The Grand Citadels Gate',
     category: 'hub',
     glyph: '🌐',
     url: 'https://raggiesoft.com',
     hostDisplay: 'raggiesoft.com',
     description:
-      'The central front door to the entire RaggieSoft creative universe—spotlighting new stories, albums, desktop apps, and studio announcements.',
+      'The central front door to the entire RaggieSoft creative universe—spotlighting our four main pillars, seasonal tributes, and quick ways to dive in.',
     nolanOrGwenTip: 'Nolan: “Not sure where to start? Step through the main gate—everything branches out from there.”',
-    hintKeywords: ['home', 'main', 'hub', 'start', 'welcome', 'app', 'download']
+    hintKeywords: ['home', 'main', 'hub', 'start', 'welcome']
+  },
+  {
+    id: 'launcher',
+    name: 'RaggieSoft Launcher (Desktop App Hub)',
+    archwayTitle: 'The Brass Clockwork Dock Arch',
+    category: 'hub',
+    glyph: '🚀',
+    url: 'https://launcher.raggiesoft.com',
+    hostDisplay: 'launcher.raggiesoft.com',
+    description:
+      'One calm, account-free desktop home to install, open, and update RaggieSoft Book Reader, The Listening Room, Backstage, and StoreTrainer for offline enjoyment.',
+    nolanOrGwenTip: 'Gwen: “Looking to read novels or stream albums offline on your computer? Every desktop app docks right through here!”',
+    hintKeywords: ['launcher', 'desktop', 'app', 'download', 'install', 'setup', 'update', 'offline', 'suite']
+  },
+  {
+    id: 'jessica',
+    name: 'Jessica — Stories Behind Every Project',
+    archwayTitle: 'The Warm Hearthstone Study Arch',
+    category: 'hub',
+    glyph: '🛡️',
+    url: 'https://jessica.raggiesoft.com',
+    hostDisplay: 'jessica.raggiesoft.com',
+    description:
+      'Step into Jessica Ragsdale’s Virginia Beach study for the personal story behind every RaggieSoft project, the November 2006 rescue & seed desk, and Rachel’s (“Bug’s”) quality-testing notes.',
+    nolanOrGwenTip: 'Nolan: “Want to know WHY each book, band, and app exists? Big sister Jessica tells the story behind every single room!”',
+    hintKeywords: ['jessica', 'origin', 'behind', 'bear', 'bug', 'sister', 'family', 'moosewood', 'seed']
   },
   {
     id: 'books',
@@ -258,10 +284,10 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
   },
   {
     path: '/realms',
-    navLabel: 'All 13 Archways',
-    seoTitle: 'All 13 RaggieSoft Realms | Waystation Directory',
+    navLabel: `All ${UNIVERSE_REALMS.length} Archways`,
+    seoTitle: 'Global RaggieSoft Directory | All 15 Waystation Portals',
     seoDescription:
-      'Browse and filter every novel imprint, music streaming hall, lore encyclopedia, and app destination across the entire RaggieSoft universe.',
+      'The canonical global directory for RaggieSoft: search and filter all 15 outward portals across books, music, lore, desktop apps, and project stories.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`
   }
 ];

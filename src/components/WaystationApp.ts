@@ -201,13 +201,19 @@ export function createWaystationApp(config: AppConfig): m.Component {
       m('div.ws-section-head', [
         m('span.ws-eyebrow', [
           m('span', { 'aria-hidden': 'true' }, '🔮'),
-          m('span', 'Gwen’s Bronze Astrolabe • All 13 Live Portals')
+          m(
+            'span',
+            `Global RaggieSoft Directory • All ${UNIVERSE_REALMS.length} Portals (+ Waystation = 16 Sites)`
+          )
         ]),
         m('h2.ws-section-title', { id: 'astrolabe-heading' }, 'Choose Your Archway Across the RaggieSoft Universe'),
-        m(
-          'p.ws-muted',
-          'Filter by realm type or type any keyword (like a character name, "music", "forest", or "books") to light up the matching runestone arch.'
-        )
+        m('p.ws-muted', [
+          'This courtyard serves as both our friendly 404 safety net and the single ',
+          m('strong', 'Global Directory'),
+          ' for every RaggieSoft site. Filter below or visit ',
+          m('a', { href: 'https://jessica.raggiesoft.com/directory' }, 'Jessica’s Study'),
+          ' to read the personal story behind why each project was created!'
+        ])
       ]),
 
       // Semantic `<search>` landmark + `<form>` + visible `<label>` + `<fieldset>/<legend>` radios
@@ -303,7 +309,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
             m('h3.ws-card-title', 'Even Gwen’s Astrolabe Didn’t Spot That Spell!'),
             m(
               'p.ws-muted',
-              'No archway matched that exact search word—reset the filter below to light all thirteen portals back up.'
+              `No archway matched that exact search word—reset the filter below to light all ${UNIVERSE_REALMS.length} portals back up.`
             ),
             m(
               'button.ws-btn.ws-btn-primary',
@@ -314,7 +320,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                   selectedCategory = 'all';
                 }
               },
-              'Show All 13 Archways'
+              `Show All ${UNIVERSE_REALMS.length} Archways`
             )
           ])
         : m(
