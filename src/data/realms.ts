@@ -245,15 +245,15 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
     navLabel: 'Courtyard Astrolabe',
     seoTitle: 'The Uncharted Waystation | RaggieSoft Universe Map',
     seoDescription:
-      'Tumbled through an uncharted rift? Barefoot siblings Nolan and Gwen Lennox welcome you to our 1980s fantasy Waystation and guide you across RaggieSoft.',
+      'At the end of a long fantasy adventure, barefoot siblings Nolan and Gwen Lennox welcome you to their Waystation home and guide you across RaggieSoft.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`
   },
   {
     path: '/guides',
     navLabel: 'Nolan & Gwen’s Story',
-    seoTitle: 'Nolan & Gwen Lennox | Barefoot Waystation Guides',
+    seoTitle: 'Nolan & Gwen Lennox | Keepers of the Waystation',
     seoDescription:
-      'How brother and sister Nolan and Gwen Lennox went from cuddling barefoot on their living room sofa to guiding travelers through a 1980s fantasy realm.',
+      'How barefoot siblings Nolan and Gwen Lennox journeyed on crutches across a 1980s fantasy world, claimed the Waystation as home, and never looked back.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_sofa_blanket_bench.jpg`
   },
   {

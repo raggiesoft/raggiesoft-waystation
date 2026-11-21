@@ -354,27 +354,37 @@ export function createWaystationApp(config: AppConfig): m.Component {
           }),
           m(
             'figcaption.ws-caption',
-            'Wheelchairs left behind in the living room, barefoot with their forearm crutches resting beside the bench—Nolan (5\'7") and Gwen Lennox (6\'1") charting the thirteen archways.'
+            'At the end of a long, winding road across Vaeloria—barefoot with their forearm crutches resting beside the bench, Nolan (5\'7") and Gwen Lennox (6\'1") at home forever in the Waystation.'
           )
         ]),
         m('div', [
           m('span.ws-eyebrow', [
-            m('span', { 'aria-hidden': 'true' }, '🛋️'),
-            m('span', 'No Shoes, No Wheelchairs—Just Four Forearm Crutches & a Throw Blanket')
+            m('span', { 'aria-hidden': 'true' }, '🏡'),
+            m('span', 'After a Long & Winding Road • Home Forever Under the Twin Moons')
           ]),
           m(
             'h2.ws-section-title',
             { id: 'guides-story-heading' },
-            '“The Rift Grabbed Our Crutches and the Blanket—and Left Both Wheelchairs by the Front Hall.”'
+            '“Earth Can Keep Our Old Apartment Keys—This Waystation Is Our Home Now.”'
           ),
           m(
             'p.ws-card-body',
-            '“Ten minutes ago Gwen and I were barefoot in jeans and t-shirts, cuddled up on the living room sofa,” Nolan laughs, leaning lightly on his silver forearm crutches against the sun-warmed quartz flagstones while looking up at his six-foot-one sister. “Both of our wheelchairs were parked across the rug by the hallway, and only our forearm crutches were propped against the couch armrest when the air shimmered like gold stained glass and pulled us straight into a 1980s fantasy movie.”'
+            '“The night the amber rift opened over our coffee table, Gwen and I were barefoot in jeans and t-shirts under this plaid blanket while both of our wheelchairs sat parked across the rug,” Nolan smiles, leaning lightly on his silver forearm crutches against the warm quartz flagstones beside his six-foot-one sister. “The rift only caught us, the blanket, and our forearm crutches—dropping us at the far edge of Vaeloria with a long, winding adventure ahead of us.”'
           ),
           m(
             'p.ws-card-body',
-            '“Thank goodness the flagstones are smooth and there’s a wide stone bench right next to this bronze Astrolabe so we don’t have to stand on crutches all night,” Gwen adds with a grin. “Whenever someone mistypes a web address and tumbles through an uncharted rift just like we did, we’re right here by the bench to point you through the exact archway you were looking for!”'
-          )
+            '“Every canal barge, mossy forest bench, and sky-gondola along that road treated us with more kindness than the real world ever did,” Gwen adds warmly. “Reaching this high twilight balcony and waking the bronze Astrolabe was the end of that journey—and the start of our real life. We don’t ever want to go back. Now we keep the lanterns lit for anyone who tumbles onto an unmapped trail, and you can read every Crossroads of how we got here!”'
+          ),
+          m('div.ws-btn-row', [
+            m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
+              m('span', { 'aria-hidden': 'true' }, '📖'),
+              m('span', 'Read Our Story Crossroads Novel →')
+            ]),
+            m('a.ws-btn.ws-btn-secondary', { href: 'https://crossroads.raggiesoft.com' }, [
+              m('span', { 'aria-hidden': 'true' }, '🧭'),
+              m('span', 'About Story Crossroads')
+            ])
+          ])
         ])
       ])
     ]);
@@ -519,24 +529,24 @@ export function createWaystationApp(config: AppConfig): m.Component {
                         ),
                     m(
                       'p.ws-lead',
-                      'Pulled off their living room sofa barefoot in jeans and plain t-shirts—with their forearm crutches in reach while their wheelchairs stayed behind in the hall—brother Nolan (5\'7") and his six-foot-one sister Gwen Lennox tend the glowing Astrolabe linking all thirteen realms of the RaggieSoft universe.'
+                      'Pulled barefoot off their living-room sofa with only their forearm crutches and a plaid blanket—leaving both wheelchairs behind on Earth—brother Nolan (5\'7") and his six-foot-one sister Gwen Lennox journeyed across a 1980s fantasy realm, claimed this high twilight balcony as their forever home, and now tend the Astrolabe linking every world in RaggieSoft.'
                     ),
                     m('div.ws-btn-row', [
-                      m('a.ws-btn.ws-btn-primary', { href: 'https://raggiesoft.com' }, [
+                      m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
+                        m('span', { 'aria-hidden': 'true' }, '📖'),
+                        m('span', 'Read Our Crossroads Adventure')
+                      ]),
+                      m('a.ws-btn.ws-btn-secondary', { href: 'https://raggiesoft.com' }, [
                         m('span', { 'aria-hidden': 'true' }, '🌐'),
                         m('span', 'RaggieSoft Hub')
                       ]),
                       m('a.ws-btn.ws-btn-secondary', { href: 'https://books.raggiesoft.com' }, [
                         m('span', { 'aria-hidden': 'true' }, '📚'),
-                        m('span', 'Read Novels')
+                        m('span', 'All Novels')
                       ]),
                       m('a.ws-btn.ws-btn-secondary', { href: 'https://music.raggiesoft.com' }, [
                         m('span', { 'aria-hidden': 'true' }, '🎧'),
                         m('span', 'Listen to Music')
-                      ]),
-                      m('a.ws-btn.ws-btn-secondary', { href: 'https://crossroads.raggiesoft.com' }, [
-                        m('span', { 'aria-hidden': 'true' }, '🧭'),
-                        m('span', 'Story Crossroads')
                       ])
                     ])
                   ]),
