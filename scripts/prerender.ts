@@ -121,7 +121,7 @@ function buildHtmlDocument(opts: {
     <meta name="twitter:description" content="${escapeHtml(route.seoDescription)}" />
     <meta name="twitter:image" content="${escapeHtml(route.ogImage)}" />
 
-    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261121b" />
+    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261121d" />
     <link rel="stylesheet" href="/assets/waystation.css" />
     ${is404 ? '' : `<script type="application/ld+json">${jsonLd}</script>`}
   </head>
@@ -146,7 +146,7 @@ function buildHtmlDocument(opts: {
       is404 ? 'true' : 'false'
     }">${appHtml}</div>
 
-    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261121b" defer></script>
+    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261121d" defer></script>
     <script type="module" src="/assets/waystation-app.js"></script>
   </body>
 </html>
