@@ -203,7 +203,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
           m('span', { 'aria-hidden': 'true' }, '🔮'),
           m(
             'span',
-            `Global RaggieSoft Directory • All ${UNIVERSE_REALMS.length} Portals (+ Waystation = 16 Sites)`
+            `Global RaggieSoft Directory • All ${UNIVERSE_REALMS.length} Portals (+ Waystation = 17 Sites)`
           )
         ]),
         m('h2.ws-section-title', { id: 'astrolabe-heading' }, 'Choose Your Archway Across the RaggieSoft Universe'),

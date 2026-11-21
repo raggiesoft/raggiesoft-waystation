@@ -39,7 +39,7 @@ export interface CategoryOption {
  * "Expose 2 to 5 mutually exclusive options as visible radio buttons when choices are fewer than six").
  */
 export const REALM_CATEGORIES: CategoryOption[] = [
-  { id: 'all', label: 'All 15 Archways', runeIcon: '✦' },
+  { id: 'all', label: 'All 16 Archways', runeIcon: '✦' },
   { id: 'stories', label: 'Novels & Crossroads', runeIcon: '📖' },
   { id: 'music', label: 'Music & Bands', runeIcon: '🎧' },
   { id: 'lore', label: 'Lore, Space & Backstage', runeIcon: '🔮' },
@@ -85,6 +85,19 @@ export const UNIVERSE_REALMS: UniverseRealm[] = [
       'One calm, account-free desktop home to install, open, and update RaggieSoft Book Reader, The Listening Room, Backstage, and StoreTrainer for offline enjoyment.',
     nolanOrGwenTip: 'Gwen: “Looking to read novels or stream albums offline on your computer? Every desktop app docks right through here!”',
     hintKeywords: ['launcher', 'desktop', 'app', 'download', 'install', 'setup', 'update', 'offline', 'suite']
+  },
+  {
+    id: 'a11y',
+    name: 'RaggieSoft Accessibility Studio',
+    archwayTitle: 'The Sapphire Lens & Compass Arch',
+    category: 'hub',
+    glyph: '♿',
+    url: 'https://a11y.raggiesoft.com',
+    hostDisplay: 'a11y.raggiesoft.com',
+    description:
+      'Enterprise Windows desktop studio and command-line toolkit for auditing, diff-reviewing, and fixing web accessibility across code, stylesheets, and captions.',
+    nolanOrGwenTip: 'Nolan: “Having walked miles on forearm crutches myself, building doorways everyone can step through matters—this is Michael’s flagship accessibility studio!”',
+    hintKeywords: ['a11y', 'accessibility', 'studio', 'wcag', '508', 'audit', 'ide', 'contrast']
   },
   {
     id: 'jessica',
@@ -285,9 +298,9 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
   {
     path: '/realms',
     navLabel: `All ${UNIVERSE_REALMS.length} Archways`,
-    seoTitle: 'Global RaggieSoft Directory | All 15 Waystation Portals',
+    seoTitle: 'Global RaggieSoft Directory | All 16 Waystation Portals',
     seoDescription:
-      'The canonical global directory for RaggieSoft: search and filter all 15 outward portals across books, music, lore, desktop apps, and project stories.',
+      'The canonical global directory for RaggieSoft: search and filter all 16 outward portals across books, music, lore, desktop apps, and project stories.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`
   }
 ];
