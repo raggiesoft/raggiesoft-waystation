@@ -1,0 +1,5 @@
+# The Uncharted Waystation (https://waystation.raggiesoft.com)
+User-agent: *
+Allow: /
+
+Sitemap: https://waystation.raggiesoft.com/sitemap.xml

@@ -1,0 +1,22 @@
+{
+  "name": "raggiesoft-waystation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Uncharted Waystation — 1980s Fantasy-Adventure RaggieSoft Universe Directory & HTTP 404 Catch-All (https://waystation.raggiesoft.com) — Mithril.js + TypeScript Hyperscript Static SSG",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build:client": "esbuild src/entry-client.ts --bundle --format=esm --target=es2022 --minify --outfile=dist/assets/waystation-app.js",
+    "build:ssg": "esbuild scripts/prerender.ts --bundle --platform=node --format=esm --target=node22 --outfile=.ssg-temp/prerender.mjs && node .ssg-temp/prerender.mjs",
+    "build": "npm run typecheck && npm run build:client && npm run build:ssg"
+  },
+  "dependencies": {
+    "mithril": "^2.2.11"
+  },
+  "devDependencies": {
+    "@types/mithril": "^2.2.7",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.3"
+  }
+}
