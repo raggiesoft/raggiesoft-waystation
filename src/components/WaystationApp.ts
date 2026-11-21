@@ -420,47 +420,75 @@ export function createWaystationApp(config: AppConfig): m.Component {
               ]
             ),
 
-            m('div.ws-nav-cluster', [
-              m(
-                'nav',
-                { 'aria-label': 'Waystation Navigation' },
-                m(
-                  'ul.ws-nav-list',
-                  WAYSTATION_ROUTES.map((route) => {
-                    const isActive = !rift.isRift404 && activePath === route.path;
-                    return m('li', { key: route.path }, [
-                      m(
-                        'a.ws-nav-link',
-                        {
-                          href: `${baseOrigin}${route.path}`,
-                          'aria-current': isActive ? 'page' : undefined,
-                          onclick: (e: MouseEvent) => navigateLocal(e, route.path)
-                        },
-                        route.navLabel
-                      )
-                    ]);
-                  })
-                )
-              ),
-
-              m(
-                'button.ws-lamp-btn',
-                {
-                  type: 'button',
-                  onclick: toggleReadingLamp
-                },
-                [
-                  m('span.ws-lamp-to-light', [
-                    m('span', { 'aria-hidden': 'true' }, '☀️'),
-                    m('span', 'Sunlit Stone')
-                  ]),
-                  m('span.ws-lamp-to-dark', [
-                    m('span', { 'aria-hidden': 'true' }, '🌙'),
-                    m('span', 'Twin Moons')
-                  ])
-                ]
+            m(
+              'button.rs-mobile-header-toggle',
+              {
+                type: 'button',
+                'data-rs-mobile-toggle': '',
+                'data-open-label': 'Open menu',
+                'data-close-label': 'Close menu',
+                'aria-expanded': 'false',
+                'aria-controls': 'header-navigation-panel',
+                'aria-label': 'Open menu'
+              },
+              m.trust(
+                '<svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg><svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
               )
-            ])
+            ),
+
+            m(
+              'div.ws-nav-cluster',
+              { id: 'header-navigation-panel', 'data-rs-collapsible': 'true' },
+              [
+                m(
+                  'nav',
+                  { 'aria-label': 'Waystation Navigation' },
+                  m(
+                    'ul.ws-nav-list',
+                    WAYSTATION_ROUTES.map((route) => {
+                      const isActive = !rift.isRift404 && activePath === route.path;
+                      return m('li', { key: route.path }, [
+                        m(
+                          'a.ws-nav-link',
+                          {
+                            href: `${baseOrigin}${route.path}`,
+                            'aria-current': isActive ? 'page' : undefined,
+                            onclick: (e: MouseEvent) => navigateLocal(e, route.path)
+                          },
+                          route.navLabel
+                        )
+                      ]);
+                    })
+                  )
+                ),
+
+                m(
+                  'button.ws-lamp-btn',
+                  {
+                    type: 'button',
+                    onclick: toggleReadingLamp
+                  },
+                  [
+                    m('span.ws-lamp-to-light', [
+                      m('span', { 'aria-hidden': 'true' }, '☀️'),
+                      m('span', 'Sunlit Stone')
+                    ]),
+                    m('span.ws-lamp-to-dark', [
+                      m('span', { 'aria-hidden': 'true' }, '🌙'),
+                      m('span', 'Twin Moons')
+                    ])
+                  ]
+                ),
+
+                m('div.rs-vdom-slot', {
+                  oncreate: () => {
+                    if (typeof window !== 'undefined') {
+                      (window as unknown as { initRaggieSoftNetworkMenu?: () => void }).initRaggieSoftNetworkMenu?.();
+                    }
+                  }
+                })
+              ]
+            )
           ])
         ]),
 

@@ -209,6 +209,9 @@
     background-color: var(--ws-surface);
     border-bottom: 2px solid var(--ws-border);
     padding-block: 0.85rem;
+    position: sticky;
+    top: 0;
+    z-index: 60;
   }
 
   .ws-header-inner {
@@ -290,6 +293,40 @@
     background-color: var(--ws-badge-bg);
     color: var(--ws-badge-fg);
     border-color: var(--ws-gold-trim);
+  }
+
+  @media (max-width: 767.98px) {
+    .ws-header {
+      padding-block: 0.42rem;
+    }
+
+    .ws-header-inner {
+      gap: 0.5rem;
+    }
+
+    .ws-brand-medallion {
+      width: 34px;
+      height: 34px;
+      font-size: 1.05rem;
+    }
+
+    .ws-brand-title {
+      font-size: 1rem;
+    }
+
+    .ws-brand-sub {
+      display: none;
+    }
+
+    .ws-nav-list {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .ws-nav-link {
+      width: 100%;
+    }
   }
 
   .ws-main {
