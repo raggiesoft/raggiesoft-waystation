@@ -353,14 +353,14 @@ export function createWaystationApp(config: AppConfig): m.Component {
         m('figure.ws-figure', [
           m('img', {
             src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_sofa_blanket_bench.jpg`,
-            alt: 'On a carved mossy stone bench in a twin-moon 1980s fantasy courtyard, barefoot 5-foot-7 stocky brother Nolan Lennox in a navy t-shirt and jeans and his taller 6-foot-1 curvy sister Gwen Lennox in a burgundy t-shirt and jeans sit cuddled under a plaid throw blanket with both pairs of their aluminum forearm crutches leaning against the bench beside them',
+            alt: 'On a carved mossy stone bench in a twin-moon 1980s fantasy courtyard, barefoot 5-foot-7 stocky brother Nolan Lennox in a navy t-shirt and jeans and his taller 6-foot-1 curvy sister Gwen Lennox in a burgundy t-shirt and jeans sit cuddled closely together in a warm hug under their green-and-navy plaid throw blanket, with Nolan’s matte-silver Lofstrand forearm crutches and Gwen’s matte-charcoal Lofstrand forearm crutches leaning cleanly against the stone armrests beside them',
             width: 1200,
             height: 675,
             loading: 'lazy'
           }),
           m(
             'figcaption.ws-caption',
-            'At the end of a long, winding road across Vaeloria—barefoot with their forearm crutches resting beside the bench, Nolan (5\'7") and Gwen Lennox (6\'1") at home forever in the Waystation.'
+            'At the end of a long, winding road across Vaeloria—cuddled under their living-room plaid blanket with their ergonomic forearm crutches resting beside the bench, Nolan (5\'7") and Gwen Lennox (6\'1") at home forever in the Waystation.'
           )
         ]),
         m('div', [
@@ -375,11 +375,11 @@ export function createWaystationApp(config: AppConfig): m.Component {
           ),
           m(
             'p.ws-card-body',
-            '“The night the amber rift opened over our coffee table, Gwen and I were barefoot in jeans and t-shirts under this plaid blanket while both of our wheelchairs sat parked across the rug,” Nolan smiles, leaning lightly on his silver forearm crutches against the warm quartz flagstones beside his six-foot-one sister. “The rift only caught us, the blanket, and our forearm crutches—dropping us at the far edge of Vaeloria with a long, winding adventure ahead of us.”'
+            '“The night the amber rift opened over our coffee table, Gwen and I were curled up barefoot in jeans and t-shirts under this plaid blanket while both of our wheelchairs sat parked across the rug,” Nolan smiles, wrapping an arm around his six-foot-one sister beside the carved Astrolabe pedestal where their four forearm crutches rest. “The rift only caught us, the blanket, and our two pairs of forearm crutches—dropping us at the far edge of Vaeloria with a long, winding adventure ahead of us.”'
           ),
           m(
             'p.ws-card-body',
-            '“Every canal barge, mossy forest bench, and sky-gondola along that road treated us with more kindness than the real world ever did,” Gwen adds warmly. “Reaching this high twilight balcony and waking the bronze Astrolabe was the end of that journey—and the start of our real life. We don’t ever want to go back. Now we keep the lanterns lit for anyone who tumbles onto an unmapped trail, and you can read every Crossroads of how we got here!”'
+            '“Every night we camped along mossy stone arches, canal barges, and sky-terraces, the two of us curled up together under this same blanket, and every road treated us with more kindness than the real world ever did,” Gwen adds warmly, resting her cheek against the top of Nolan’s head. “Reaching this high twilight balcony and waking the bronze Astrolabe was the end of that journey—and the start of our real life. Now we keep the lanterns lit for anyone who tumbles onto an unmapped trail!”'
           ),
           m('div.ws-btn-row', [
             m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
@@ -588,14 +588,14 @@ export function createWaystationApp(config: AppConfig): m.Component {
                   m('figure.ws-figure', [
                     m('img', {
                       src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`,
-                      alt: 'Barefoot 5-foot-7 stocky brother Nolan Lennox in a plain navy t-shirt and blue jeans and his taller 6-foot-1 curvy sister Gwen Lennox in a plain burgundy t-shirt and blue jeans standing on forearm crutches on smooth ancient flagstones inside a glowing 1980s fantasy courtyard with crystal spires and twin moons behind them',
+                      alt: 'Barefoot 5-foot-7 stocky brother Nolan Lennox in a plain navy t-shirt and blue jeans and his taller 6-foot-1 curvy sister Gwen Lennox in a plain burgundy t-shirt and blue jeans embracing in a warm two-armed sibling hug on smooth ancient flagstones inside a glowing 1980s fantasy courtyard, with both pairs of their silver and charcoal ergonomic Lofstrand forearm crutches leaning neatly against the carved stone Astrolabe pedestal beside them and twin moons shining behind crystal spires',
                       width: 1200,
                       height: 675,
                       fetchpriority: 'high'
                     }),
                     m(
                       'figcaption.ws-caption',
-                      'Barefoot on forearm crutches in a 1980s fantasy courtyard—Nolan (5\'7") and Gwen Lennox (6\'1") welcoming lost travelers.'
+                      'Barefoot in a warm sibling hug beside their forearm crutches and the bronze Astrolabe—Nolan (5\'7") and Gwen Lennox (6\'1") welcoming lost travelers.'
                     )
                   ])
                 ])
