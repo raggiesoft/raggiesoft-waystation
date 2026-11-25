@@ -85,6 +85,14 @@ function buildHtmlDocument(opts: {
 -->
 <html lang="en">
   <head>
+    <!-- Google Analytics 4 (GA4) Telemetry Integration (G-P9RG9JVYB6) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P9RG9JVYB6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P9RG9JVYB6');
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
@@ -121,7 +129,7 @@ function buildHtmlDocument(opts: {
     <meta name="twitter:description" content="${escapeHtml(route.seoDescription)}" />
     <meta name="twitter:image" content="${escapeHtml(route.ogImage)}" />
 
-    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261121e" />
+    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261125g" />
     <link rel="stylesheet" href="/assets/waystation.css" />
     ${is404 ? '' : `<script type="application/ld+json">${jsonLd}</script>`}
   </head>
@@ -146,7 +154,7 @@ function buildHtmlDocument(opts: {
       is404 ? 'true' : 'false'
     }">${appHtml}</div>
 
-    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261121e" defer></script>
+    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261125g" defer></script>
     <script type="module" src="/assets/waystation-app.js"></script>
   </body>
 </html>

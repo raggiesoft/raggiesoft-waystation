@@ -640,7 +640,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                 )
               ]),
               m('div', [
-                m('h2.ws-card-title', 'Creative Licensing'),
+                m('h2.ws-card-title', 'Creative Licensing & Governance'),
                 m('p.ws-muted', [
                   'Original narratives, characters, and artwork are shared under ',
                   m('a', { href: 'https://creativecommons.org/licenses/by-sa/4.0/' }, 'CC BY-SA 4.0'),
@@ -651,6 +651,17 @@ export function createWaystationApp(config: AppConfig): m.Component {
                     'RaggieSoft Media'
                   ),
                   '.'
+                ]),
+                m('p.ws-muted', { style: 'margin-top: 0.45rem;' }, [
+                  m('a', { href: 'https://raggiesoft.com/about/privacy' }, 'Privacy Policy'),
+                  ' • ',
+                  m('a', { href: 'https://raggiesoft.com/about/terms' }, 'Terms of Service'),
+                  ' • ',
+                  m(
+                    'a',
+                    { href: 'https://raggiesoft.com/about/ai-disclaimer' },
+                    'AI & Creative Process | RaggieSoft Governance'
+                  )
                 ])
               ])
             ]),
