@@ -369,47 +369,115 @@ export function createWaystationApp(config: AppConfig): m.Component {
   }
 
   function renderGuidesStorySection(): m.Vnode {
-    return m('section.ws-section', { 'aria-labelledby': 'guides-story-heading' }, [
-      m('div.ws-story-frame.ws-two-col', [
-        m('figure.ws-figure', [
-          m('img', {
-            src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_sofa_blanket_bench.jpg`,
-            alt: 'On a carved mossy stone bench in a twin-moon 1980s fantasy courtyard, barefoot 5-foot-7 stocky brother Nolan Lennox in a navy t-shirt and jeans and his taller 6-foot-1 curvy sister Gwen Lennox in a burgundy t-shirt and jeans sit cuddled closely together in a warm hug under their green-and-navy plaid throw blanket, with Nolan’s matte-silver Lofstrand forearm crutches and Gwen’s matte-charcoal Lofstrand forearm crutches leaning cleanly against the stone armrests beside them',
-            width: 1200,
-            height: 675,
-            loading: 'lazy'
-          }),
-          m(
-            'figcaption.ws-caption',
-            'At the end of a long, winding road across Vaeloria—cuddled under their living-room plaid blanket with their ergonomic forearm crutches resting beside the bench, Nolan (5\'7") and Gwen Lennox (6\'1") at home forever in the Waystation.'
-          )
-        ]),
-        m('div', [
-          m('span.ws-eyebrow', [
-            m('span', { 'aria-hidden': 'true' }, '🏡'),
-            m('span', 'After a Long & Winding Road • Home Forever Under the Twin Moons')
+    return m('div', [
+      m('section.ws-section', { 'aria-labelledby': 'guides-story-heading' }, [
+        m('div.ws-story-frame.ws-two-col', [
+          m('figure.ws-figure', [
+            m('img', {
+              src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_sofa_blanket_bench.jpg`,
+              alt: 'On a carved mossy stone bench in a twin-moon 1980s fantasy courtyard, barefoot twenty-four-year-old brother Nolan Lennox (5-foot-7, navy t-shirt and jeans) and his taller nineteen-year-old sister Gwen Lennox (6-foot-1, burgundy t-shirt and jeans) sit cuddled closely together in a warm hug under Grandpa Walter’s green-and-navy plaid wool blanket, with Nolan’s matte-silver Lofstrand forearm crutches and Gwen’s matte-charcoal Lofstrand forearm crutches leaning cleanly against the stone armrests beside them',
+              width: 1200,
+              height: 675,
+              loading: 'lazy'
+            }),
+            m(
+              'figcaption.ws-caption',
+              'Earned at the end of a long, winding adventure across Vaeloria—cuddled under Grandpa Walter’s plaid blanket with their ergonomic forearm crutches beside the bench, Nolan (24, 5\'7") and Gwen Lennox (19, 6\'1") at home forever.'
+            )
           ]),
-          m(
-            'h2.ws-section-title',
-            { id: 'guides-story-heading' },
-            '“Studio 2B Can Keep Our Old Keys—Waking This Waystation Gave Us Our Real Home.”'
-          ),
-          m(
-            'p.ws-card-body',
-            '“After Grandpa Walter passed away the day before Gwen turned eighteen, I rushed my little sister and her wheelchair straight into my tiny one-room studio apartment before state intake could split us up, and put her name right beside mine on the lease that same week,” twenty-four-year-old Nolan smiles, wrapping an arm around his six-foot-one nineteen-year-old sister beside the carved Astrolabe pedestal where their four forearm crutches rest. “For a year we had each other, even while broken elevators, dead summer air-conditioning, and six-week wheelchair part denials wore us thin—until Gwen wished aloud over our coffee table for a gentler world, and Vaeloria’s sleeping Astrolabe answered.”'
-          ),
-          m(
-            'p.ws-card-body',
-            '“The rift only caught us barefoot in jeans and t-shirts with Grandpa’s plaid blanket and our two pairs of forearm crutches—calling two unhurried hearts who never leave each other behind to heal Vaeloria’s Great Drift,” Gwen adds warmly, resting her cheek against the top of Nolan’s head. “Every night we camped along mossy stone arches, canal barges, and sky-terraces, we curled up together under this blanket, and waking the bronze Astrolabe made this twilight balcony our forever home. Now we keep the sixteen archways lit for every traveler!”'
-          ),
-          m('div.ws-btn-row', [
-            m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
-              m('span', { 'aria-hidden': 'true' }, '📖'),
-              m('span', 'Read Our Story Crossroads Novel →')
+          m('div', [
+            m('span.ws-eyebrow', [
+              m('span', { 'aria-hidden': 'true' }, '🏡'),
+              m('span', 'From a Tiny One-Room Studio to Keepers of the Waystation')
             ]),
-            m('a.ws-btn.ws-btn-secondary', { href: 'https://crossroads.raggiesoft.com' }, [
-              m('span', { 'aria-hidden': 'true' }, '🧭'),
-              m('span', 'About Story Crossroads')
+            m(
+              'h2.ws-section-title',
+              { id: 'guides-story-heading' },
+              '“Nobody Handed Us This Sanctuary—We Walked Every Gentle Mile Together to Wake It.”'
+            ),
+            m(
+              'p.ws-card-body',
+              '“Just before Gwen turned eighteen, I had barely gotten out of an abusive relationship and rented a tiny rectangular studio box—one full-sized bed, a dresser with a rabbit-ear TV and VCR/DVD combo, a dorm fridge under the counter, and a microwave cart that doubled as my pantry,” twenty-four-year-old Nolan shares, his arm wrapped warmly around his six-foot-one sister beside their four forearm crutches. “When our Grandpa Walter passed away the day before Gwen’s eighteenth birthday, I rushed her straight into that studio before state intake could take her, and Gwen never left my side or let me slip back into the dark.”'
+            ),
+            m(
+              'p.ws-card-body',
+              '“After a year of sharing that one full bed and begging on speakerphone for wheelchair parts, Vaeloria’s sleeping Astrolabe answered my wish—dropping us barefoot with Grandpa’s blanket and our forearm crutches out in the distant borderlands,” nineteen-year-old Gwen smiles, resting her cheek on Nolan’s head. “We weren’t just given this place: we had to journey across Vaeloria, curl up together at every camp, and heal the Great Drift together to earn our glowing-archway home!”'
+            ),
+            m('div.ws-btn-row', [
+              m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
+                m('span', { 'aria-hidden': 'true' }, '📖'),
+                m('span', 'Read Our Story Crossroads Novel →')
+              ]),
+              m('a.ws-btn.ws-btn-secondary', { href: 'https://crossroads.raggiesoft.com' }, [
+                m('span', { 'aria-hidden': 'true' }, '🧭'),
+                m('span', 'About Story Crossroads')
+              ])
+            ])
+          ])
+        ])
+      ]),
+
+      // Earned Sanctuary Architecture Section: Keepers' Hall & The Glowing Hearth-Archway
+      m('section.ws-section', { 'aria-labelledby': 'sanctuary-home-heading' }, [
+        m('div.ws-story-frame', [
+          m('div.ws-two-col', [
+            m('div', [
+              m('span.ws-eyebrow', [
+                m('span', { 'aria-hidden': 'true' }, '✨'),
+                m('span', 'Architectural Tour • Keepers’ Hall & The Glowing Hearth-Archway')
+              ]),
+              m(
+                'h2.ws-section-title',
+                { id: 'sanctuary-home-heading' },
+                'Built Around the Glowing Archway: Inside Nolan & Gwen’s Forever Home'
+              ),
+              m(
+                'p.ws-card-body',
+                'Once Nolan and Gwen reach the high peaks at the end of their Crossroads journey and re-harmonize the Twin-Ring Bronze Astrolabe, they discover the Slow-Footed Order built the Waystation as a living, step-free home—where a glowing turquoise-and-amber crystal archway forms their front doorway and every room answers the hardships of their old studio box:'
+              ),
+              m('div.ws-realm-grid', { style: 'margin-top: 1rem;' }, [
+                m('article.ws-arch-card', [
+                  m('h3.ws-card-title', '🚪 The Glowing Hearth-Archway'),
+                  m(
+                    'p.ws-card-body',
+                    'Built directly into the living rock between the Astrolabe courtyard and Keepers’ Hall, a gentle curtain of warm starlight keeps out mountain wind and rain without a single heavy door or step—so neither sibling ever has to let go of a forearm-crutch grip to walk inside.'
+                  )
+                ]),
+                m('article.ws-arch-card', [
+                  m('h3.ws-card-title', '🛏️ The Twin-Moon Canopy Bed'),
+                  m(
+                    'p.ws-card-body',
+                    'Even with an entire sanctuary keep, Gwen refuses to sleep down a distant hall from Nolan. Beneath a crystal twin-moon skylight sits a wide, transfer-height carved cedar bed piled with cloud-wool quilts and Grandpa Walter’s plaid blanket where they still curl up safe together.'
+                  )
+                ]),
+                m('article.ws-arch-card', [
+                  m('h3.ws-card-title', '🍲 Seated Hearth Kitchen & Spring Larder'),
+                  m(
+                    'p.ws-card-body',
+                    'Replacing their old under-counter dorm fridge and wobbly microwave pantry cart is a step-free stone-and-copper kitchen with seated prep counters off their wrists, a natural snowmelt cold-spring larder, and a warm bread hearth.'
+                  )
+                ]),
+                m('article.ws-arch-card', [
+                  m('h3.ws-card-title', '🔭 Moon-Glass Ramps & Thermal Bath'),
+                  m(
+                    'p.ws-card-body',
+                    'Sweeping, stair-free rose-quartz ramps connect a spacious ninety-eight-degree mineral soaking bath (replacing their cramped three-foot studio bathroom) to Gwen’s star-ring observatory and Nolan’s archway workbench.'
+                  )
+                ])
+              ])
+            ]),
+            m('figure.ws-figure', [
+              m('img', {
+                src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/waystation_keepers_hearth_home.jpg`,
+                alt: 'Inside Keepers’ Hall—a cozy, step-free 1980s fantasy sanctuary of honeyed cedar, warm stone hearth fire, seated copper kitchen, and a twin-moon canopy bed—barefoot brother Nolan Lennox (5-foot-7) and his taller sister Gwen Lennox (6-foot-1) cuddle warmly under Grandpa Walter’s plaid blanket beside their four ergonomic Lofstrand forearm crutches, looking out through the glowing turquoise-and-amber crystal Hearth-Archway built into their wall toward the outdoor Bronze Astrolabe and twin moons',
+                width: 1200,
+                height: 675,
+                loading: 'lazy'
+              }),
+              m(
+                'figcaption.ws-caption',
+                'Inside Keepers’ Hall: the glowing crystal Hearth-Archway forms the step-free doorway between Nolan and Gwen’s cozy hearth home and the outdoor Astrolabe courtyard.'
+              )
             ])
           ])
         ])
@@ -584,7 +652,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                         ),
                     m(
                       'p.ws-lead',
-                      'Pulled barefoot off their tiny Elm Street studio sofa-bed with Grandpa Walter’s plaid blanket and their four ergonomic forearm crutches—leaving both wheelchairs behind on Earth—twenty-four-year-old Nolan (5\'7") and his six-foot-one nineteen-year-old sister Gwen Lennox answered the call of the Slow-Footed Order’s sleeping Astrolabe, healed Vaeloria’s Great Drift, and claimed this twilight courtyard as their forever home.'
+                      'Pulled barefoot off their shared full-sized bed in a tiny one-room studio with Grandpa Walter’s plaid blanket and their four ergonomic forearm crutches—leaving both wheelchairs behind on Earth—twenty-four-year-old Nolan (5\'7") and his six-foot-one nineteen-year-old sister Gwen Lennox journeyed across Vaeloria, healed the Great Drift, and earned this glowing-archway sanctuary as their forever home.'
                     ),
                     m('div.ws-btn-row', [
                       m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
@@ -625,8 +693,8 @@ export function createWaystationApp(config: AppConfig): m.Component {
             // Page-specific heading for `/guides` or `/realms`
             !rift.isRift404 && activePath === '/guides'
               ? m('header.ws-page-intro', [
-                  m('span.ws-eyebrow', '✨ Meet Your Wayfinders'),
-                  m('h1.ws-hero-title', 'Nolan & Gwen Lennox: From Sofa Cushions to Crystal Spires')
+                  m('span.ws-eyebrow', '✨ Meet Your Wayfinders & Tour Keepers’ Hall'),
+                  m('h1.ws-hero-title', 'Nolan & Gwen Lennox: From a One-Bed Studio Box to the Glowing Archway')
                 ])
               : null,
 
