@@ -276,8 +276,15 @@ export interface PageRouteSpec {
   seoTitle: string;
   seoDescription: string;
   ogImage: string;
+  ogImageAlt: string;
 }
 
+/**
+ * Canonical pre-rendered routes for `https://waystation.raggiesoft.com`.
+ * Every route points to a dedicated `1200x630` (`1.91:1`) OpenGraph & Twitter Card
+ * social preview banner hosted on `assets.raggiesoft.com` paired with a full
+ * WCAG-accessible `ogImageAlt` description for screen-reader users on social feeds.
+ */
 export const WAYSTATION_ROUTES: PageRouteSpec[] = [
   {
     path: '/',
@@ -285,7 +292,9 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
     seoTitle: 'The Uncharted Waystation | RaggieSoft Universe Map',
     seoDescription:
       'At the end of a long fantasy adventure, barefoot siblings Nolan and Gwen Lennox welcome you to their Waystation home and guide you across RaggieSoft.',
-    ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`
+    ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-home-og.jpg`,
+    ogImageAlt:
+      'The Uncharted Waystation social card showing barefoot brother Nolan Lennox (5\'7") and his taller sister Gwen Lennox (6\'1") hugging warmly beside the bronze Astrolabe and their four ergonomic forearm crutches under twin moons.'
   },
   {
     path: '/guides',
@@ -293,7 +302,9 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
     seoTitle: 'Nolan & Gwen Lennox | Keepers of the Waystation',
     seoDescription:
       'How barefoot siblings Nolan and Gwen Lennox journeyed on crutches across a 1980s fantasy world, claimed the Waystation as home, and never looked back.',
-    ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_sofa_blanket_bench.jpg`
+    ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-guides-og.jpg`,
+    ogImageAlt:
+      'Nolan and Gwen Lennox social card showing the barefoot brother and sister cuddled closely under their green-and-navy plaid sofa blanket on a mossy stone courtyard bench with their forearm crutches resting beside them.'
   },
   {
     path: '/realms',
@@ -301,6 +312,8 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
     seoTitle: 'Global RaggieSoft Directory | All 16 Waystation Portals',
     seoDescription:
       'The canonical global directory for RaggieSoft: search and filter all 16 outward portals across books, music, lore, desktop apps, and project stories.',
-    ogImage: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`
+    ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-realms-og.jpg`,
+    ogImageAlt:
+      'Global RaggieSoft Directory social card depicting sixteen glowing carved runestone portal archways surrounding the golden-brass Waystation Astrolabe beneath Vaeloria’s twin moons.'
   }
 ];

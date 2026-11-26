@@ -28,11 +28,14 @@ import m from 'mithril';
 import { createWaystationApp } from '../src/components/WaystationApp.js';
 import { renderMithrilVnode } from '../src/ssg/renderMithrilVnode.js';
 import {
+  CDN_BASE,
   INDEXNOW_KEY,
   SITE_ORIGIN,
   WAYSTATION_ROUTES,
   type PageRouteSpec
 } from '../src/data/realms.js';
+
+const FAVICON_CDN_BASE = `${CDN_BASE}/raggiesoft-books/images/favicons/waystation`;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
@@ -115,22 +118,37 @@ function buildHtmlDocument(opts: {
         : `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`
     }
 
+    <!-- Waystation Astrolabe & Twin-Moons Favicons + Web App Manifest -->
+    <link rel="icon" type="image/svg+xml" href="${FAVICON_CDN_BASE}/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="${FAVICON_CDN_BASE}/favicon-96x96.png" />
+    <link rel="shortcut icon" href="${FAVICON_CDN_BASE}/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="${FAVICON_CDN_BASE}/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Waystation" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Complete OpenGraph (1200x630) & Social Unfurl Metadata -->
     <meta property="og:site_name" content="The Uncharted Waystation" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="${escapeHtml(route.seoTitle)}" />
     <meta property="og:description" content="${escapeHtml(route.seoDescription)}" />
     <meta property="og:url" content="${escapeHtml(canonicalUrl)}" />
     <meta property="og:image" content="${escapeHtml(route.ogImage)}" />
+    <meta property="og:image:secure_url" content="${escapeHtml(route.ogImage)}" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="675" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(route.ogImageAlt)}" />
 
+    <!-- Twitter / X Summary Large Image Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(route.seoTitle)}" />
     <meta name="twitter:description" content="${escapeHtml(route.seoDescription)}" />
     <meta name="twitter:image" content="${escapeHtml(route.ogImage)}" />
+    <meta name="twitter:image:alt" content="${escapeHtml(route.ogImageAlt)}" />
 
     <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261125g" />
-    <link rel="stylesheet" href="/assets/waystation.css" />
+    <link rel="stylesheet" href="${is404 ? `${SITE_ORIGIN}/assets/waystation.css` : '/assets/waystation.css'}" />
     ${is404 ? '' : `<script type="application/ld+json">${jsonLd}</script>`}
   </head>
   <body>
@@ -155,7 +173,7 @@ function buildHtmlDocument(opts: {
     }">${appHtml}</div>
 
     <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261125g" defer></script>
-    <script type="module" src="/assets/waystation-app.js"></script>
+    <script type="module" src="${is404 ? `${SITE_ORIGIN}/assets/waystation-app.js` : '/assets/waystation-app.js'}"></script>
   </body>
 </html>
 `;
@@ -167,6 +185,19 @@ async function main(): Promise<void> {
     path.join(rootDir, 'src/styles/waystation.css'),
     path.join(distDir, 'assets/waystation.css')
   );
+
+  // Copy all root-level favicons & `site.webmanifest` from `public/` straight into `dist/`
+  // so direct browser requests to `/favicon.ico`, `/favicon.svg`, `/apple-touch-icon.png`,
+  // and `/site.webmanifest` resolve with `200 OK` on `waystation.raggiesoft.com`!
+  const publicDir = path.join(rootDir, 'public');
+  if (fs.existsSync(publicDir)) {
+    for (const entry of fs.readdirSync(publicDir)) {
+      const srcFile = path.join(publicDir, entry);
+      if (fs.statSync(srcFile).isFile()) {
+        fs.copyFileSync(srcFile, path.join(distDir, entry));
+      }
+    }
+  }
 
   for (const route of WAYSTATION_ROUTES) {
     const appHtml = renderMithrilVnode(
@@ -193,7 +224,9 @@ async function main(): Promise<void> {
     seoTitle: '404 Uncharted Rift | The Uncharted Waystation',
     seoDescription:
       'That subdomain or trail is unmapped—Nolan and Gwen Lennox welcome you to our 1980s fantasy Waystation to point you across the RaggieSoft universe.',
-    ogImage: WAYSTATION_ROUTES[0].ogImage
+    ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-404-og.jpg`,
+    ogImageAlt:
+      '404 Uncharted Dimensional Rift social card showing barefoot siblings Nolan and Gwen Lennox welcoming lost travelers to the Waystation courtyard under twin moons.'
   };
   const app404Html = renderMithrilVnode(
     m(createWaystationApp({ initialPath: '/', force404Mode: true }))

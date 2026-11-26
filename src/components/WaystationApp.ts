@@ -143,6 +143,27 @@ export function createWaystationApp(config: AppConfig): m.Component {
     const matchedRoute = WAYSTATION_ROUTES.find((r) => r.path === targetPath);
     if (matchedRoute) {
       document.title = matchedRoute.seoTitle;
+      // Keep client-side <head> meta & canonical tags synchronized during SPA navigation
+      const canonicalHref = `https://waystation.raggiesoft.com${
+        matchedRoute.path === '/' ? '/' : matchedRoute.path
+      }`;
+      const setMeta = (selector: string, content: string): void => {
+        const el = document.querySelector<HTMLMetaElement>(selector);
+        if (el) el.content = content;
+      };
+      setMeta('meta[name="description"]', matchedRoute.seoDescription);
+      setMeta('meta[property="og:title"]', matchedRoute.seoTitle);
+      setMeta('meta[property="og:description"]', matchedRoute.seoDescription);
+      setMeta('meta[property="og:url"]', canonicalHref);
+      setMeta('meta[property="og:image"]', matchedRoute.ogImage);
+      setMeta('meta[property="og:image:secure_url"]', matchedRoute.ogImage);
+      setMeta('meta[property="og:image:alt"]', matchedRoute.ogImageAlt);
+      setMeta('meta[name="twitter:title"]', matchedRoute.seoTitle);
+      setMeta('meta[name="twitter:description"]', matchedRoute.seoDescription);
+      setMeta('meta[name="twitter:image"]', matchedRoute.ogImage);
+      setMeta('meta[name="twitter:image:alt"]', matchedRoute.ogImageAlt);
+      const canonicalEl = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+      if (canonicalEl) canonicalEl.href = canonicalHref;
     }
     const mainEl = document.getElementById('main-content');
     mainEl?.focus();
