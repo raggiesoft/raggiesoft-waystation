@@ -9,9 +9,9 @@
  *     This TypeScript module holds the structured catalog of every live
  *     destination across the RaggieSoft Universe—organized as glowing stone
  *     archways inside **The Uncharted Waystation**—alongside the backstory of
- *     twenty-year-old **Nolan Lennox** and nineteen-year-old **Gwen Lennox**,
- *     our barefoot real-world brother and sister who tumbled off their living
- *     room sofa into this 1980s Fantasy-Adventure courtyard!
+ *     twenty-four-year-old **Nolan Lennox** (`5'7"`) and nineteen-year-old
+ *     **Gwen Lennox** (`6'1"`), our barefoot brother and sister who tumbled off
+ *     their studio sofa-bed into this 1980s Fantasy-Adventure courtyard!
  *
  *   How Smart Typo / Rift Matching Works:
  *     Every `UniverseRealm` entry includes an array of `hintKeywords` (such as

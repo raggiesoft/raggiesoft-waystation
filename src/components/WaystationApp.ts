@@ -392,15 +392,15 @@ export function createWaystationApp(config: AppConfig): m.Component {
           m(
             'h2.ws-section-title',
             { id: 'guides-story-heading' },
-            '“Earth Can Keep Our Old Apartment Keys—This Waystation Is Our Home Now.”'
+            '“Studio 2B Can Keep Our Old Keys—Waking This Waystation Gave Us Our Real Home.”'
           ),
           m(
             'p.ws-card-body',
-            '“The night the amber rift opened over our coffee table, Gwen and I were curled up barefoot in jeans and t-shirts under this plaid blanket while both of our wheelchairs sat parked across the rug,” Nolan smiles, wrapping an arm around his six-foot-one sister beside the carved Astrolabe pedestal where their four forearm crutches rest. “The rift only caught us, the blanket, and our two pairs of forearm crutches—dropping us at the far edge of Vaeloria with a long, winding adventure ahead of us.”'
+            '“After Grandpa Walter passed away the day before Gwen turned eighteen, I rushed my little sister and her wheelchair straight into my tiny one-room studio apartment before state intake could split us up, and put her name right beside mine on the lease that same week,” twenty-four-year-old Nolan smiles, wrapping an arm around his six-foot-one nineteen-year-old sister beside the carved Astrolabe pedestal where their four forearm crutches rest. “For a year we had each other, even while broken elevators, dead summer air-conditioning, and six-week wheelchair part denials wore us thin—until Gwen wished aloud over our coffee table for a gentler world, and Vaeloria’s sleeping Astrolabe answered.”'
           ),
           m(
             'p.ws-card-body',
-            '“Every night we camped along mossy stone arches, canal barges, and sky-terraces, the two of us curled up together under this same blanket, and every road treated us with more kindness than the real world ever did,” Gwen adds warmly, resting her cheek against the top of Nolan’s head. “Reaching this high twilight balcony and waking the bronze Astrolabe was the end of that journey—and the start of our real life. Now we keep the lanterns lit for anyone who tumbles onto an unmapped trail!”'
+            '“The rift only caught us barefoot in jeans and t-shirts with Grandpa’s plaid blanket and our two pairs of forearm crutches—calling two unhurried hearts who never leave each other behind to heal Vaeloria’s Great Drift,” Gwen adds warmly, resting her cheek against the top of Nolan’s head. “Every night we camped along mossy stone arches, canal barges, and sky-terraces, we curled up together under this blanket, and waking the bronze Astrolabe made this twilight balcony our forever home. Now we keep the sixteen archways lit for every traveler!”'
           ),
           m('div.ws-btn-row', [
             m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
@@ -584,7 +584,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                         ),
                     m(
                       'p.ws-lead',
-                      'Pulled barefoot off their living-room sofa with only their forearm crutches and a plaid blanket—leaving both wheelchairs behind on Earth—brother Nolan (5\'7") and his six-foot-one sister Gwen Lennox journeyed across a 1980s fantasy realm, claimed this high twilight balcony as their forever home, and now tend the Astrolabe linking every world in RaggieSoft.'
+                      'Pulled barefoot off their tiny Elm Street studio sofa-bed with Grandpa Walter’s plaid blanket and their four ergonomic forearm crutches—leaving both wheelchairs behind on Earth—twenty-four-year-old Nolan (5\'7") and his six-foot-one nineteen-year-old sister Gwen Lennox answered the call of the Slow-Footed Order’s sleeping Astrolabe, healed Vaeloria’s Great Drift, and claimed this twilight courtyard as their forever home.'
                     ),
                     m('div.ws-btn-row', [
                       m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
