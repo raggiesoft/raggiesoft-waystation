@@ -397,7 +397,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
             ),
             m(
               'p.ws-card-body',
-              '“Just before Gwen turned eighteen, I had barely gotten out of an abusive relationship and rented a tiny rectangular studio box—one full-sized bed, a dresser with a rabbit-ear TV and VCR/DVD combo, a dorm fridge under the counter, and a microwave cart that doubled as my pantry,” twenty-four-year-old Nolan shares, his arm wrapped warmly around his six-foot-one sister beside their four forearm crutches. “When our Grandpa Walter passed away the day before Gwen’s eighteenth birthday, I rushed her straight into that studio before state intake could take her, and Gwen never left my side or let me slip back into the dark.”'
+              '“Three weeks before Gwen turned eighteen, fellow passengers at the Norfolk bus station had to help push my abusive ex away after I broke down crying and refused to get on a cross-country bus that would have made me miss my kid sister’s birthday back in the Emerald Creek area of Chesapeake,” twenty-four-year-old Nolan shares, his arm wrapped warmly around his six-foot-one sister beside their four forearm crutches. “Days later, when Grandpa Walter passed away at our house on Ike Street the eve of Gwen’s eighteenth birthday, I rushed her straight into my tiny rectangular one-person studio—one corner full bed, a swiveled rabbit-ear TV and VCR/DVD combo, an under-counter dorm fridge, and a microwave pantry cart—and Gwen never left my side or let me slip back into that dark again.”'
             ),
             m(
               'p.ws-card-body',
