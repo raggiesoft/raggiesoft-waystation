@@ -401,13 +401,21 @@ export function createWaystationApp(config: AppConfig): m.Component {
             ),
             m(
               'p.ws-card-body',
-              '“After a year of sharing that one full bed and begging on speakerphone for wheelchair parts, Vaeloria’s sleeping Astrolabe answered my wish—dropping us barefoot with Grandpa’s blanket and our forearm crutches out in the distant borderlands,” nineteen-year-old Gwen smiles, resting her cheek on Nolan’s head. “We weren’t just given this place: we had to journey across Vaeloria, curl up together at every camp, and heal the Great Drift together to earn our glowing-archway home!”'
+              '“At first I panicked losing both of our wheelchairs behind the rift—we had zero idea Earth time was standing still until we finished our journey, woke the Bronze Astrolabe, and stepped back into our studio for the first time to see the VCR clock still glowing at 9:15 PM!” nineteen-year-old Gwen smiles, resting her cheek on Nolan’s head. “We brought Grandpa Walter’s framed photo, our two laptops, and our wheelchairs home through the glowing archway, learned time always stands still in whichever world we aren’t standing in, and chose this sanctuary as our forever home—knowing Earth always waits whenever we want to visit!”'
             ),
             m('div.ws-btn-row', [
               m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
                 m('span', { 'aria-hidden': 'true' }, '📖'),
                 m('span', 'Read Our Story Crossroads Novel →')
               ]),
+              m(
+                'a.ws-btn.ws-btn-secondary',
+                { href: 'https://backstage.raggiesoft.com/books/waystation/the-paused-vcr-clock-and-two-world-time' },
+                [
+                  m('span', { 'aria-hidden': 'true' }, '🎬'),
+                  m('span', 'Backstage: The 9:15 PM Clock')
+                ]
+              ),
               m('a.ws-btn.ws-btn-secondary', { href: 'https://crossroads.raggiesoft.com' }, [
                 m('span', { 'aria-hidden': 'true' }, '🧭'),
                 m('span', 'About Story Crossroads')
