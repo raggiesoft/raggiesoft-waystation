@@ -431,7 +431,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
           m('div.ws-two-col', [
             m('div', [
               m('span.ws-eyebrow', [
-                m('span', { 'aria-hidden': 'true' }, '✨'),
+                m('span', { 'aria-hidden': 'true' }, '🏛️'),
                 m('span', 'Architectural Tour • Keepers’ Hall & The Glowing Hearth-Archway')
               ]),
               m(
@@ -618,7 +618,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                     ? m('div.ws-suggested-box', [
                         m(
                           'span.ws-eyebrow',
-                          `✨ Gwen’s Closest Match for "${rift.attemptedAddress}"`
+                          `🧭 Gwen’s Closest Match for "${rift.attemptedAddress}"`
                         ),
                         m('div.ws-suggested-row', [
                           m('div', [
@@ -701,7 +701,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
             // Page-specific heading for `/guides` or `/realms`
             !rift.isRift404 && activePath === '/guides'
               ? m('header.ws-page-intro', [
-                  m('span.ws-eyebrow', '✨ Meet Your Wayfinders & Tour Keepers’ Hall'),
+                  m('span.ws-eyebrow', '🧭 Meet Your Wayfinders & Tour Keepers’ Hall'),
                   m('h1.ws-hero-title', 'Nolan & Gwen Lennox: From a One-Bed Studio Box to the Glowing Archway')
                 ])
               : null,
