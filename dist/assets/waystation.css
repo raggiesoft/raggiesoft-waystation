@@ -739,6 +739,43 @@
     margin-bottom: 1.5rem;
   }
 
+  /* Three-Keeper Dossier Grid & Two-World Chronicle Cards */
+  .ws-keeper-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  }
+
+  .ws-keeper-card {
+    border-top-width: 5px;
+  }
+
+  .ws-keeper-ring,
+  .ws-keeper-gear {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ws-ink);
+  }
+
+  .ws-chronicle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .ws-chronicle-card {
+    margin: 0;
+  }
+
+  .ws-mt-sm {
+    margin-top: 0.75rem;
+  }
+
+  .ws-mt-md {
+    margin-top: 1.25rem;
+  }
+
   .ws-disclaimer {
     margin-top: 1.5rem;
     padding: 1rem 1.2rem;

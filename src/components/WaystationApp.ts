@@ -19,14 +19,19 @@
  *         button, Mithril automatically re-evaluates `view()` and patches ONLY
  *         the changed DOM nodes in under a millisecond—all in `< 10 KB` of JS!
  *
- *   Dual Mode (Canonical `waystation.raggiesoft.com` vs. Unmapped `404` Rift):
- *     - On `waystation.raggiesoft.com` (`/`, `/guides`, `/realms`), visitors
- *       explore the courtyard, read Nolan & Gwen's sofa-to-fantasy story, and
- *       use the Astrolabe Directory.
- *     - On `/404.html`—OR whenever Nginx's `default_server` serves this app on
- *       an unconfigured/mistyped subdomain like `https://book.raggiesoft.com`—
- *       `detectUnchartedRift()` activates the **404 Rift Banner** and uses
- *       keyword matching to suggest the exact RaggieSoft archway right on top!
+ *   Four Canonical Routes + Dual-Mode 404 Safety Net:
+ *     - `/`: Courtyard Astrolabe, Three-Keeper Spotlight, 16-Portal Directory,
+ *       and Keepers' Hall Sanctuary overview.
+ *     - `/guides`: Full character dossiers for **Nolan Lennox**, **Gwen Lennox**,
+ *       and **Mallory Walsh**, Keepers' Hall & Cloudbrook Hollow tour, and the
+ *       complete Tidewater Earth & Vaeloria supporting cast (including **Tammy**,
+ *       **Grandpa Walter**, **Denise Carter**, and Vaeloria's route keepers).
+ *     - `/story`: Six-act illustrated walkthrough from Norfolk's bus terminal
+ *       and Studio 205 across the 9:15 PM amber rift into Vaeloria.
+ *     - `/realms`: Dedicated 16-portal Global RaggieSoft Directory.
+ *     - `/404.html` (and any unconfigured `*.raggiesoft.com` typo subdomain):
+ *       `detectUnchartedRift()` activates the **404 Rift Banner** and suggests
+ *       the closest matching RaggieSoft archway right on top!
  * ============================================================================
  */
 
@@ -34,9 +39,13 @@ import m from 'mithril';
 import {
   CDN_BASE,
   REALM_CATEGORIES,
+  SUPPORTING_CAST,
+  TWO_WORLD_CHRONICLES,
   UNIVERSE_REALMS,
+  WAYSTATION_KEEPERS,
   WAYSTATION_ROUTES,
   type RealmCategory,
+  type SupportingCharacter,
   type UniverseRealm
 } from '../data/realms.js';
 
@@ -52,16 +61,27 @@ interface RiftDetection {
 }
 
 /**
+ * Checks whether a normalized pathname matches one of our pre-rendered routes
+ * (`/`, `/guides`, `/story`, `/realms`) defined in `WAYSTATION_ROUTES`.
+ */
+function isCanonicalWaystationPath(pathname: string): boolean {
+  return WAYSTATION_ROUTES.some((route) => route.path === pathname);
+}
+
+/**
  * Inspects the current browser URL (when running client-side) or `force404Mode`
  * (when pre-rendering `dist/404.html` on Node.js) to see if the traveler arrived
  * via an unconfigured subdomain (`book.raggiesoft.com`) or a missing path (`404`).
  */
 function detectUnchartedRift(initialPath: string, force404Mode: boolean): RiftDetection {
+  // Node.js Static Site Generation (`typeof window === 'undefined'`)
   if (typeof window === 'undefined') {
+    const defaultBooksRealm =
+      UNIVERSE_REALMS.find((r) => r.id === 'books') ?? UNIVERSE_REALMS[0] ?? null;
     return {
       isRift404: force404Mode,
       attemptedAddress: 'an unmapped *.raggiesoft.com trail',
-      suggestedRealm: UNIVERSE_REALMS[1] // Ocean View Archives default preview
+      suggestedRealm: defaultBooksRealm
     };
   }
 
@@ -70,14 +90,13 @@ function detectUnchartedRift(initialPath: string, force404Mode: boolean): RiftDe
   const isCanonicalHost =
     host === 'waystation.raggiesoft.com' || host === 'localhost' || host === '127.0.0.1';
   const normalizedPath = pathname.replace(/\/+$/, '') || '/';
-  const isKnownWaystationRoute =
-    normalizedPath === '/' || normalizedPath === '/guides' || normalizedPath === '/realms';
+  const isKnownWaystationRoute = isCanonicalWaystationPath(normalizedPath);
 
   const isRift404 = force404Mode || !isCanonicalHost || !isKnownWaystationRoute;
   const fullAttempt = `${host}${pathname === '/' ? '' : pathname}`;
 
   // Score each RaggieSoft realm against keywords found in the mistyped hostname/path
-  const haystack = `${host} ${pathname}`.toLowerCase();
+  const haystack = `${host} ${pathname} ${initialPath}`.toLowerCase();
   let bestMatch: UniverseRealm | null = null;
   for (const realm of UNIVERSE_REALMS) {
     if (realm.hintKeywords.some((kw) => haystack.includes(kw))) {
@@ -105,15 +124,15 @@ export function createWaystationApp(config: AppConfig): m.Component {
   let selectedCategory: RealmCategory = 'all';
   let searchQuery = '';
 
-  // Sync browser Back/Forward buttons when navigating between `/`, `/guides`, `/realms`
+  // Sync browser Back/Forward buttons when navigating between `/`, `/guides`, `/story`, `/realms`
   if (typeof window !== 'undefined') {
     const startNorm = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
-    if (startNorm === '/' || startNorm === '/guides' || startNorm === '/realms') {
+    if (isCanonicalWaystationPath(startNorm)) {
       activePath = startNorm;
     }
     window.addEventListener('popstate', () => {
       const p = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
-      if (p === '/' || p === '/guides' || p === '/realms') {
+      if (isCanonicalWaystationPath(p)) {
         activePath = p;
         is404Override = false;
         m.redraw();
@@ -121,10 +140,12 @@ export function createWaystationApp(config: AppConfig): m.Component {
     });
   }
 
+  /**
+   * Intercepts plain left-clicks on internal Waystation navigation links when
+   * already on `waystation.raggiesoft.com` so route changes feel instantaneous,
+   * updates `<head>` metadata for accessibility/sharing, and scrolls smoothly to top.
+   */
   function navigateLocal(e: MouseEvent, targetPath: string): void {
-    // Only intercept plain left-clicks when already on canonical waystation.raggiesoft.com!
-    // If the visitor is on a 404 typo subdomain (`book.raggiesoft.com`), let normal `<a href>`
-    // navigate cleanly to `https://waystation.raggiesoft.com/...`!
     if (
       typeof window === 'undefined' ||
       e.metaKey ||
@@ -140,10 +161,11 @@ export function createWaystationApp(config: AppConfig): m.Component {
     activePath = targetPath;
     is404Override = false;
     window.history.pushState({}, '', targetPath);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+
     const matchedRoute = WAYSTATION_ROUTES.find((r) => r.path === targetPath);
     if (matchedRoute) {
       document.title = matchedRoute.seoTitle;
-      // Keep client-side <head> meta & canonical tags synchronized during SPA navigation
       const canonicalHref = `https://waystation.raggiesoft.com${
         matchedRoute.path === '/' ? '/' : matchedRoute.path
       }`;
@@ -169,6 +191,10 @@ export function createWaystationApp(config: AppConfig): m.Component {
     mainEl?.focus();
   }
 
+  /**
+   * Toggles between Sunlit Stone (Light) and Twin Moons (Dark) reading modes,
+   * automatically clearing any manual override when returning to OS preference.
+   */
   function toggleReadingLamp(): void {
     if (typeof window === 'undefined') return;
     const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
@@ -199,6 +225,9 @@ export function createWaystationApp(config: AppConfig): m.Component {
     }
   }
 
+  /**
+   * Filters `UNIVERSE_REALMS` by active radio category AND free-text search query.
+   */
   function filterRealms(): UniverseRealm[] {
     const q = searchQuery.trim().toLowerCase();
     return UNIVERSE_REALMS.filter((realm) => {
@@ -210,11 +239,96 @@ export function createWaystationApp(config: AppConfig): m.Component {
         realm.archwayTitle.toLowerCase().includes(q) ||
         realm.description.toLowerCase().includes(q) ||
         realm.hostDisplay.toLowerCase().includes(q) ||
+        realm.nolanOrGwenTip.toLowerCase().includes(q) ||
         realm.hintKeywords.some((k) => k.includes(q))
       );
     });
   }
 
+  /**
+   * Renders the 3-card spotlight for Nolan Lennox, Gwen Lennox, and Mallory Walsh.
+   * On `/` (`compact = true`), displays a concise welcoming introduction with buttons
+   * into `/guides` and `/story`. On `/guides` (`compact = false`), displays full
+   * Astrolabe Ring assignments, mobility/gear notes, and first-person quotes!
+   */
+  function renderKeepersDossierGrid(baseOrigin: string, compact: boolean): m.Vnode {
+    return m(
+      'section.ws-section',
+      { 'aria-labelledby': compact ? 'home-keepers-heading' : 'full-keepers-heading' },
+      [
+        m('div.ws-section-head', [
+          m('span.ws-eyebrow', [
+            m('span', { 'aria-hidden': 'true' }, '🧭'),
+            m('span', 'Three Keepers • Three Bronze Astrolabe Rings')
+          ]),
+          m(
+            'h2.ws-section-title',
+            { id: compact ? 'home-keepers-heading' : 'full-keepers-heading' },
+            compact
+              ? 'Meet Nolan, Gwen & Mallory—Your Three Waystation Keepers'
+              : 'The Three Keepers Who Harmonized the Bronze Astrolabe'
+          ),
+          m(
+            'p.ws-muted',
+            'Originally built for three harmonizers by Vaeloria’s Slow-Footed Order, the Three-Ring Bronze Astrolabe waited centuries for older brother Nolan Lennox, his tall younger sister Gwen, and his devoted girlfriend Mallory Walsh to arrive together from Studio 205.'
+          )
+        ]),
+
+        m(
+          'div.ws-keeper-grid',
+          WAYSTATION_KEEPERS.map((keeper) =>
+            m('article.ws-arch-card.ws-keeper-card', { key: keeper.id }, [
+              m('span.ws-arch-subtitle', keeper.statsBadge),
+              m('h3.ws-card-title', keeper.name),
+              m('p.ws-keeper-ring', [
+                m('strong', 'Astrolabe Role: '),
+                keeper.astrolabeRing
+              ]),
+              !compact
+                ? m('p.ws-keeper-gear', [
+                    m('strong', 'Everyday Stride & Gear: '),
+                    keeper.mobilityAndGear
+                  ])
+                : null,
+              m('p.ws-card-body', keeper.summary),
+              m('p.ws-guide-whisper', keeper.voiceQuote)
+            ])
+          )
+        ),
+
+        compact
+          ? m('div.ws-btn-row.ws-mt-md', [
+              m(
+                'a.ws-btn.ws-btn-primary',
+                {
+                  href: `${baseOrigin}/guides`,
+                  onclick: (e: MouseEvent) => navigateLocal(e, '/guides')
+                },
+                [
+                  m('span', { 'aria-hidden': 'true' }, '👥'),
+                  m('span', 'Meet Tammy & Full Cast Dossier →')
+                ]
+              ),
+              m(
+                'a.ws-btn.ws-btn-secondary',
+                {
+                  href: `${baseOrigin}/story`,
+                  onclick: (e: MouseEvent) => navigateLocal(e, '/story')
+                },
+                [
+                  m('span', { 'aria-hidden': 'true' }, '🗺️'),
+                  m('span', 'Explore the 6-Act Two-World Story →')
+                ]
+              )
+            ])
+          : null
+      ]
+    );
+  }
+
+  /**
+   * Renders the interactive 16-Portal Astrolabe Directory (`<search>` + category radios).
+   */
   function renderAstrolabeDirectory(): m.Vnode {
     const filtered = filterRealms();
 
@@ -238,7 +352,6 @@ export function createWaystationApp(config: AppConfig): m.Component {
       ]),
 
       // Semantic `<search>` landmark + `<form>` + visible `<label>` + `<fieldset>/<legend>` radios
-      // built directly per `modern-web-guidance` (`forms` & `natural-interactions`)!
       m('search.ws-search-box', { 'aria-label': 'Find a RaggieSoft destination' }, [
         m(
           'form.ws-search-form',
@@ -262,7 +375,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                   id: 'waystation-q',
                   name: 'q',
                   value: searchQuery,
-                  placeholder: 'Try "Cedar Run", "Listening Room", "Katie", or "synth"...',
+                  placeholder: 'Try "Mallory", "Cedar Run", "Listening Room", or "synth"...',
                   autocorrect: 'off',
                   autocapitalize: 'none',
                   spellcheck: 'false',
@@ -327,7 +440,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
 
       filtered.length === 0
         ? m('div.ws-story-frame', [
-            m('h3.ws-card-title', 'Even Gwen’s Astrolabe Didn’t Spot That Spell!'),
+            m('h3.ws-card-title', 'Even Gwen & Mallory’s Astrolabe Didn’t Spot That Spell!'),
             m(
               'p.ws-muted',
               `No archway matched that exact search word—reset the filter below to light all ${UNIVERSE_REALMS.length} portals back up.`
@@ -368,7 +481,10 @@ export function createWaystationApp(config: AppConfig): m.Component {
     ]);
   }
 
-  function renderGuidesStorySection(): m.Vnode {
+  /**
+   * Renders Nolan, Gwen & Mallory's Star-Moss arrival story and Keepers' Hall tour.
+   */
+  function renderGuidesStorySection(baseOrigin: string, includeWaterwheelTeaScene: boolean): m.Vnode {
     return m('div', [
       m('section.ws-section', { 'aria-labelledby': 'guides-story-heading' }, [
         m('div.ws-story-frame.ws-two-col', [
@@ -400,14 +516,25 @@ export function createWaystationApp(config: AppConfig): m.Component {
               '“After Grandpa Walter passed away and Gwen and I moved into our eleven-by-eighteen-foot Norfolk studio—where the lobby elevator stayed taped off and one full-sized bed barely fit two of us—my girlfriend Mallory Walsh climbed twenty-two wet stairs on a rainy Friday night just to hang out barefoot with us after forty-seven minutes on speakerphone hold for Gwen’s bent wheelchair fork,” twenty-four-year-old Nolan shares, seated right between his six-foot-one sister and Mallory beside their four forearm crutches. “When the amber stained-glass rift opened beside our bed at 9:15 PM, none of us let go—all three of us tumbled into Vaeloria together with Grandpa’s plaid blanket and our crutches.”'
             ),
             m(
-              'p.ws-card-body',
+              'p.ws-card-body.ws-mt-sm',
               '“We had zero idea Earth time was paused until Gwen’s orbital math, Mallory’s runic logic, and Nolan’s steady pace woke the Three-Ring Bronze Astrolabe and we stepped back into Studio 205 to see the VCR clock still glowing at 9:15 PM!” nineteen-year-old Gwen beams, resting her cheek on Nolan’s head while Mallory holds his other hand. “We brought Grandpa’s framed photo, our laptops, Mallory’s sneakers, and both wheelchairs back into Keepers’ Hall—where every town, ramp, and wide cedar bed has room for all three of us while Earth waits peacefully whenever we visit!”'
             ),
-            m('div.ws-btn-row', [
+            m('div.ws-btn-row.ws-mt-md', [
               m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
                 m('span', { 'aria-hidden': 'true' }, '📖'),
                 m('span', 'Read Our Story Crossroads Novel →')
               ]),
+              m(
+                'a.ws-btn.ws-btn-secondary',
+                {
+                  href: `${baseOrigin}/story`,
+                  onclick: (e: MouseEvent) => navigateLocal(e, '/story')
+                },
+                [
+                  m('span', { 'aria-hidden': 'true' }, '🗺️'),
+                  m('span', '6-Act Story & Crossroads Guide')
+                ]
+              ),
               m(
                 'a.ws-btn.ws-btn-secondary',
                 { href: 'https://backstage.raggiesoft.com/books/waystation/the-paused-vcr-clock-and-two-world-time' },
@@ -415,11 +542,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                   m('span', { 'aria-hidden': 'true' }, '🎬'),
                   m('span', 'Backstage: The 9:15 PM Clock')
                 ]
-              ),
-              m('a.ws-btn.ws-btn-secondary', { href: 'https://crossroads.raggiesoft.com' }, [
-                m('span', { 'aria-hidden': 'true' }, '🧭'),
-                m('span', 'About Story Crossroads')
-              ])
+              )
             ])
           ])
         ])
@@ -443,7 +566,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                 'p.ws-card-body',
                 'Once Nolan, Gwen, and Mallory reach the high peaks on their Crossroads journey and re-harmonize the Three-Ring Bronze Astrolabe, they discover the Slow-Footed Order built Keepers’ Hall—and the valley towns beyond—as a living, step-free world that answers every hardship of their old Norfolk studio:'
               ),
-              m('div.ws-realm-grid', { style: 'margin-top: 1rem;' }, [
+              m('div.ws-realm-grid.ws-mt-md', [
                 m('article.ws-arch-card', [
                   m('h3.ws-card-title', '🚪 The Glowing Hearth-Archway'),
                   m(
@@ -489,7 +612,191 @@ export function createWaystationApp(config: AppConfig): m.Component {
             ])
           ])
         ])
-      ])
+      ]),
+
+      includeWaterwheelTeaScene
+        ? m('section.ws-section', { 'aria-labelledby': 'cloudbrook-tea-heading' }, [
+            m('div.ws-story-frame.ws-two-col', [
+              m('figure.ws-figure', [
+                m('img', {
+                  src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/e002/e002_c006_p002_vaeloria_tea_terrace_three_keepers.jpg`,
+                  alt: 'On the cedar-and-stone Waterwheel Tea-Terrace beside a gently turning mossy millwheel in Cloudbrook Hollow, twenty-four-year-old Nolan Lennox and his six-foot-one sister Gwen Lennox sit comfortably in their manual wheelchairs with single-tube forearm crutches clipped behind their backrests beside Mallory Walsh in her forest-green cardigan and wire-rimmed glasses over warm mugs of spiced pear cider, honey-oat scones, brass star-vellum charts, and runic slates',
+                  width: 1200,
+                  height: 675,
+                  loading: 'lazy'
+                }),
+                m(
+                  'figcaption.ws-caption',
+                  'Afternoon at Cloudbrook Hollow’s Waterwheel Tea-Terrace: spiced pear cider, honey-oat scones, Gwen’s star-vellum charts, and Mallory’s runic slates.'
+                )
+              ]),
+              m('div', [
+                m('span.ws-eyebrow', [
+                  m('span', { 'aria-hidden': 'true' }, '🫖'),
+                  m('span', 'Beyond Keepers’ Hall • Living Valley Towns')
+                ]),
+                m(
+                  'h2.ws-section-title',
+                  { id: 'cloudbrook-tea-heading' },
+                  'A Whole Step-Free Realm Waiting Beyond the Courtyard'
+                ),
+                m(
+                  'p.ws-card-body',
+                  'Keepers’ Hall is not an isolated tower—it is Nolan, Gwen, and Mallory’s front porch onto all of Vaeloria. Down the water-balanced cliff lift lies Cloudbrook Hollow, where Master Doran’s woodshop and Baker Tamsin’s hearth ovens were built centuries ago around smooth cedar ramps and thirty-six-inch-low slate counters so wheelchair users and forearm-crutch walkers move right alongside everyone else.'
+                ),
+                m(
+                  'p.ws-card-body.ws-mt-sm',
+                  'On the Waterwheel Tea-Terrace, Mallory translates Slow-Footed Order cipher slates with her blue pen while Gwen plots twin-moon eclipses and Nolan maps the Western Star-Bridges—where their next Vaeloria adventures are only just beginning.'
+                )
+              ])
+            ])
+          ])
+        : null
+    ]);
+  }
+
+  /**
+   * Renders the Tidewater Earth & Vaeloria Supporting Cast cards on `/guides`.
+   */
+  function renderSupportingCastSection(): m.Vnode {
+    const earthCast: SupportingCharacter[] = SUPPORTING_CAST.filter((c) => c.world === 'earth');
+    const vaeloriaCast: SupportingCharacter[] = SUPPORTING_CAST.filter(
+      (c) => c.world === 'vaeloria'
+    );
+
+    const renderGroup = (
+      headingId: string,
+      eyebrow: string,
+      title: string,
+      subtitle: string,
+      members: SupportingCharacter[]
+    ): m.Vnode =>
+      m('section.ws-section', { 'aria-labelledby': headingId }, [
+        m('div.ws-section-head', [
+          m('span.ws-eyebrow', eyebrow),
+          m('h2.ws-section-title', { id: headingId }, title),
+          m('p.ws-muted', subtitle)
+        ]),
+        m(
+          'div.ws-realm-grid',
+          members.map((person) =>
+            m('article.ws-arch-card', { key: person.id }, [
+              m('div.ws-arch-top', [
+                m('span.ws-arch-glyph', { 'aria-hidden': 'true' }, person.icon),
+                m('span.ws-arch-subtitle', person.roleBadge)
+              ]),
+              m('h3.ws-card-title', person.name),
+              m('p.ws-card-body', person.summary)
+            ])
+          )
+        )
+      ]);
+
+    return m('div', [
+      renderGroup(
+        'earth-cast-heading',
+        '🌎 Book One Cast • Tidewater Virginia (1999–2002)',
+        'Allies & Foil Back Home in Tidewater Virginia',
+        'Before the amber rift ever opened beside Studio 205’s bed, these four people shaped Nolan, Gwen, and Mallory’s two-year road to freedom and self-respect on Earth.',
+        earthCast
+      ),
+      renderGroup(
+        'vaeloria-cast-heading',
+        '🌙 Book Two Cast • Twin-Moon Vaeloria',
+        'Keepers, Pilots & Artisans of Vaeloria',
+        'Across all three Sunken Milestone routes and down into Cloudbrook Hollow, Vaeloria’s neighbors welcome Nolan, Gwen, and Mallory at an unhurried human pace.',
+        vaeloriaCast
+      )
+    ]);
+  }
+
+  /**
+   * Renders the full 6-Act Illustrated Two-World Story & Crossroads Guide on `/story`.
+   */
+  function renderChroniclesPage(baseOrigin: string): m.Vnode {
+    return m('div', [
+      m('header.ws-page-intro', [
+        m('span.ws-eyebrow', '📖 Book One & Book Two • 4 Story Crossroads • 51 Illustrations'),
+        m(
+          'h1.ws-hero-title',
+          'From Norfolk’s Bus Terminal & Studio 205 to Twin-Moon Vaeloria'
+        ),
+        m(
+          'p.ws-lead',
+          'Explore how twenty-four-year-old Nolan Lennox, his six-foot-one sister Gwen, and his girlfriend Mallory Walsh weathered two turbulent years in Tidewater Virginia, shut Tammy’s manipulation down for good, and crossed barefoot through a 9:15 PM stained-glass rift into Vaeloria.'
+        ),
+        m('div.ws-btn-row', [
+          m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
+            m('span', { 'aria-hidden': 'true' }, '📚'),
+            m('span', 'Start Reading in Book Reader →')
+          ]),
+          m('a.ws-btn.ws-btn-secondary', { href: 'https://books.raggiesoft.com/waystation/illustrations' }, [
+            m('span', { 'aria-hidden': 'true' }, '🖼️'),
+            m('span', 'Browse All 51 Book Illustrations')
+          ]),
+          m(
+            'a.ws-btn.ws-btn-secondary',
+            {
+              href: `${baseOrigin}/guides`,
+              onclick: (e: MouseEvent) => navigateLocal(e, '/guides')
+            },
+            [
+              m('span', { 'aria-hidden': 'true' }, '👥'),
+              m('span', 'Meet the Keepers & Cast')
+            ]
+          )
+        ])
+      ]),
+
+      m(
+        'div.ws-chronicle-list',
+        TWO_WORLD_CHRONICLES.map((item, idx) =>
+          m(
+            'section.ws-story-frame.ws-two-col.ws-chronicle-card',
+            {
+              key: item.actLabel,
+              'aria-labelledby': `act-heading-${idx + 1}`
+            },
+            idx % 2 === 0
+              ? [
+                  m('figure.ws-figure', [
+                    m('img', {
+                      src: item.imageUrl,
+                      alt: item.imageAlt,
+                      width: 1200,
+                      height: 675,
+                      loading: idx === 0 ? 'eager' : 'lazy'
+                    }),
+                    m('figcaption.ws-caption', item.imageCaption)
+                  ]),
+                  m('div', [
+                    m('span.ws-eyebrow', `${item.actLabel} • ${item.eraBadge}`),
+                    m('h2.ws-section-title', { id: `act-heading-${idx + 1}` }, item.title),
+                    m('p.ws-card-body', item.body),
+                    m('p.ws-guide-whisper.ws-mt-sm', item.crossroadsNote)
+                  ])
+                ]
+              : [
+                  m('div', [
+                    m('span.ws-eyebrow', `${item.actLabel} • ${item.eraBadge}`),
+                    m('h2.ws-section-title', { id: `act-heading-${idx + 1}` }, item.title),
+                    m('p.ws-card-body', item.body),
+                    m('p.ws-guide-whisper.ws-mt-sm', item.crossroadsNote)
+                  ]),
+                  m('figure.ws-figure', [
+                    m('img', {
+                      src: item.imageUrl,
+                      alt: item.imageAlt,
+                      width: 1200,
+                      height: 675,
+                      loading: 'lazy'
+                    }),
+                    m('figcaption.ws-caption', item.imageCaption)
+                  ])
+                ]
+          )
+        )
+      )
     ]);
   }
 
@@ -641,71 +948,97 @@ export function createWaystationApp(config: AppConfig): m.Component {
 
             // Canonical Hero on `/` (or companion visual right under the 404 banner!)
             activePath === '/' || rift.isRift404
-              ? m('section.ws-hero', { 'aria-labelledby': rift.isRift404 ? 'courtyard-welcome' : 'hero-main-heading' }, [
-                  m('div', [
-                    m('span.ws-eyebrow', [
-                      m('span', { 'aria-hidden': 'true' }, '🏰'),
-                      m('span', '1980s Fantasy Outpost • Three Everyday Human Guides')
-                    ]),
-                    rift.isRift404
-                      ? m(
-                          'h2.ws-section-title',
-                          { id: 'courtyard-welcome' },
-                          'Welcome to the Courtyard Between Worlds'
-                        )
-                      : m(
-                          'h1.ws-hero-title',
-                          { id: 'hero-main-heading' },
-                          'Three Barefoot Keepers in a 1980s Fantasy World—Pointing You Home.'
+              ? m(
+                  'section.ws-hero',
+                  { 'aria-labelledby': rift.isRift404 ? 'courtyard-welcome' : 'hero-main-heading' },
+                  [
+                    m('div', [
+                      m('span.ws-eyebrow', [
+                        m('span', { 'aria-hidden': 'true' }, '🏰'),
+                        m('span', '1980s Fantasy Outpost • Three Everyday Human Guides')
+                      ]),
+                      rift.isRift404
+                        ? m(
+                            'h2.ws-section-title',
+                            { id: 'courtyard-welcome' },
+                            'Welcome to the Courtyard Between Worlds'
+                          )
+                        : m(
+                            'h1.ws-hero-title',
+                            { id: 'hero-main-heading' },
+                            'Three Barefoot Keepers in a 1980s Fantasy World—Pointing You Home.'
+                          ),
+                      m(
+                        'p.ws-lead',
+                        'Pulled barefoot off Studio 205’s full-sized bed with Grandpa Walter’s plaid blanket and their four ergonomic forearm crutches—leaving both wheelchairs behind on Earth—twenty-four-year-old Nolan (5\'7"), his six-foot-one nineteen-year-old sister Gwen Lennox, and his girlfriend Mallory Walsh (5\'5") journeyed across Vaeloria, woke the Three-Ring Bronze Astrolabe, and built an unhurried life together in Keepers’ Hall.'
+                      ),
+                      m('div.ws-btn-row', [
+                        m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
+                          m('span', { 'aria-hidden': 'true' }, '📖'),
+                          m('span', 'Read Our Crossroads Adventure')
+                        ]),
+                        m(
+                          'a.ws-btn.ws-btn-secondary',
+                          {
+                            href: `${baseOrigin}/guides`,
+                            onclick: (e: MouseEvent) => navigateLocal(e, '/guides')
+                          },
+                          [
+                            m('span', { 'aria-hidden': 'true' }, '👥'),
+                            m('span', 'Meet Keepers & Cast')
+                          ]
                         ),
-                    m(
-                      'p.ws-lead',
-                      'Pulled barefoot off Studio 205’s full-sized bed with Grandpa Walter’s plaid blanket and their four ergonomic forearm crutches—leaving both wheelchairs behind on Earth—twenty-four-year-old Nolan (5\'7"), his six-foot-one nineteen-year-old sister Gwen Lennox, and his girlfriend Mallory Walsh (5\'5") journeyed across Vaeloria, woke the Three-Ring Bronze Astrolabe, and built an unhurried life in Keepers’ Hall.'
-                    ),
-                    m('div.ws-btn-row', [
-                      m('a.ws-btn.ws-btn-primary', { href: 'https://books.raggiesoft.com/waystation' }, [
-                        m('span', { 'aria-hidden': 'true' }, '📖'),
-                        m('span', 'Read Our Crossroads Adventure')
-                      ]),
-                      m('a.ws-btn.ws-btn-secondary', { href: 'https://raggiesoft.com' }, [
-                        m('span', { 'aria-hidden': 'true' }, '🌐'),
-                        m('span', 'RaggieSoft Hub')
-                      ]),
-                      m('a.ws-btn.ws-btn-secondary', { href: 'https://books.raggiesoft.com' }, [
-                        m('span', { 'aria-hidden': 'true' }, '📚'),
-                        m('span', 'All Novels')
-                      ]),
-                      m('a.ws-btn.ws-btn-secondary', { href: 'https://music.raggiesoft.com' }, [
-                        m('span', { 'aria-hidden': 'true' }, '🎧'),
-                        m('span', 'Listen to Music')
+                        m(
+                          'a.ws-btn.ws-btn-secondary',
+                          {
+                            href: `${baseOrigin}/story`,
+                            onclick: (e: MouseEvent) => navigateLocal(e, '/story')
+                          },
+                          [
+                            m('span', { 'aria-hidden': 'true' }, '🗺️'),
+                            m('span', 'Two-World Story')
+                          ]
+                        ),
+                        m('a.ws-btn.ws-btn-secondary', { href: 'https://raggiesoft.com' }, [
+                          m('span', { 'aria-hidden': 'true' }, '🌐'),
+                          m('span', 'RaggieSoft Hub')
+                        ])
                       ])
-                    ])
-                  ]),
+                    ]),
 
-                  m('figure.ws-figure', [
-                    m('img', {
-                      src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`,
-                      alt: 'High on the rose-quartz Star-Court parapet of the Uncharted Waystation beneath two rising moons, twenty-four-year-old Nolan Lennox (5-foot-7, navy t-shirt and jeans, on his matte-silver single-tube Lofstrand forearm crutches) stands right in the middle between his taller nineteen-year-old sister Gwen Lennox (6-foot-1, burgundy t-shirt, on her matte-charcoal single-tube Lofstrand forearm crutches) and his girlfriend Mallory Walsh (5-foot-5, copper-auburn ponytail with blue pen behind her ear, thin silver wire-rimmed glasses, forest-green cardigan over cream tee, holding a runic slate) beside the Three-Ring Bronze Astrolabe and glowing stained-glass portal archways',
-                      width: 1200,
-                      height: 675,
-                      fetchpriority: 'high'
-                    }),
-                    m(
-                      'figcaption.ws-caption',
-                      'Standing together beside the Three-Ring Bronze Astrolabe and glowing archway—Nolan (5\'7"), sister Gwen (6\'1"), and Mallory Walsh (5\'5") welcoming travelers.'
-                    )
-                  ])
-                ])
+                    m('figure.ws-figure', [
+                      m('img', {
+                        src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`,
+                        alt: 'High on the rose-quartz Star-Court parapet of the Uncharted Waystation beneath two rising moons, twenty-four-year-old Nolan Lennox (5-foot-7, navy t-shirt and jeans, on his matte-silver single-tube Lofstrand forearm crutches) stands right in the middle between his taller nineteen-year-old sister Gwen Lennox (6-foot-1, burgundy t-shirt, on her matte-charcoal single-tube Lofstrand forearm crutches) and his girlfriend Mallory Walsh (5-foot-5, copper-auburn ponytail with blue pen behind her ear, thin silver wire-rimmed glasses, forest-green cardigan over cream tee, holding a runic slate) beside the Three-Ring Bronze Astrolabe and glowing stained-glass portal archways',
+                        width: 1200,
+                        height: 675,
+                        fetchpriority: 'high'
+                      }),
+                      m(
+                        'figcaption.ws-caption',
+                        'Standing together beside the Three-Ring Bronze Astrolabe and glowing archway—Nolan (5\'7"), sister Gwen (6\'1"), and Mallory Walsh (5\'5") welcoming travelers.'
+                      )
+                    ])
+                  ]
+                )
               : null,
 
-            // Page-specific heading for `/guides` or `/realms`
+            // Page-specific heading for `/guides`
             !rift.isRift404 && activePath === '/guides'
               ? m('header.ws-page-intro', [
-                  m('span.ws-eyebrow', '🧭 Meet Your Wayfinders & Tour Keepers’ Hall'),
-                  m('h1.ws-hero-title', 'Nolan, Gwen & Mallory: From a One-Bed Studio Box to Vaeloria')
+                  m('span.ws-eyebrow', '🧭 Meet Your Wayfinders, Keepers’ Hall & Full Supporting Cast'),
+                  m(
+                    'h1.ws-hero-title',
+                    'Nolan, Gwen, Mallory & the People of Tidewater and Vaeloria'
+                  ),
+                  m(
+                    'p.ws-lead',
+                    'Get to know the three Keepers tending the Bronze Astrolabe—plus Grandpa Walter, cabbie Denise Carter, Nolan’s controlling ex Tammy, and the barge pilots, herbalists, and Cloudbrook Hollow artisans across Vaeloria.'
+                  )
                 ])
               : null,
 
+            // Page-specific heading for `/realms`
             !rift.isRift404 && activePath === '/realms'
               ? m('header.ws-page-intro', [
                   m('span.ws-eyebrow', '🗺️ Complete Universe Directory'),
@@ -713,15 +1046,31 @@ export function createWaystationApp(config: AppConfig): m.Component {
                 ])
               : null,
 
+            // Full 6-Act Illustrated Two-World Story route (`/story`)
+            !rift.isRift404 && activePath === '/story' ? renderChroniclesPage(baseOrigin) : null,
+
+            // Full Keepers Dossiers at top of `/guides`
+            !rift.isRift404 && activePath === '/guides'
+              ? renderKeepersDossierGrid(baseOrigin, false)
+              : null,
+
             // Render Astrolabe Directory on `/`, `/realms`, and all `404` Rift arrivals
             activePath === '/' || activePath === '/realms' || rift.isRift404
               ? renderAstrolabeDirectory()
               : null,
 
-            // Render Nolan & Gwen's Sofa-to-Waystation Story on `/` and `/guides` (and 404!)
+            // Compact Three-Keeper Spotlight on `/` (right below the directory so visitors meet Mallory, Nolan & Gwen!)
+            !rift.isRift404 && activePath === '/'
+              ? renderKeepersDossierGrid(baseOrigin, true)
+              : null,
+
+            // Render Star-Moss Blanket & Keepers' Hall Sanctuary Tour on `/`, `/guides`, and `404`
             activePath === '/' || activePath === '/guides' || rift.isRift404
-              ? renderGuidesStorySection()
-              : null
+              ? renderGuidesStorySection(baseOrigin, !rift.isRift404 && activePath === '/guides')
+              : null,
+
+            // Render Earth & Vaeloria Supporting Cast on `/guides`
+            !rift.isRift404 && activePath === '/guides' ? renderSupportingCastSection() : null
           ])
         ]),
 
@@ -733,7 +1082,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
                 m('h2.ws-card-title', 'The Uncharted Waystation'),
                 m(
                   'p.ws-muted',
-                  'Official universe directory and friendly 404 wayfinder across RaggieSoft, Ocean View Archives, RaggieSoft Story Crossroads, and Engine Room Records.'
+                  'Official universe directory, character & world companion for The Uncharted Waystation, and friendly 404 wayfinder across RaggieSoft, Ocean View Archives, RaggieSoft Story Crossroads, and Engine Room Records.'
                 )
               ]),
               m('div', [
@@ -768,7 +1117,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
               { role: 'note', 'aria-label': 'Fictitious Persons and Entities Disclaimer' },
               [
                 m('strong', 'Work of Fiction Disclaimer: '),
-                'All RaggieSoft characters (including Nolan & Gwen Lennox, Mallory Walsh, Rowan & Iris Hawthorne, the Bridger triplets, and the OVA Siblings), bands, biographies, universities (including CPI, VDU, The Forgers, and The Crucible), corporations (OmniCorp, Apex Records, Prairie Coachworks, Sainte-Claire), transit agencies (BRT, CVTA), in-universe legal filings, and events are works of fiction. Any resemblance to actual persons, living or dead, or real-world entities is purely coincidental.'
+                'All RaggieSoft characters (including Nolan, Gwen & Walter Lennox, Mallory Walsh, Tammy, Ray Halstead, Denise Carter, Bramwell Kettle, Rowan & Iris Hawthorne, the Bridger triplets, and the OVA Siblings), bands, biographies, universities (including CPI, VDU, The Forgers, and The Crucible), corporations (OmniCorp, Apex Records, Prairie Coachworks, Sainte-Claire), transit agencies (BRT, CVTA), in-universe legal filings, and events are works of fiction. Any resemblance to actual persons, living or dead, or real-world entities is purely coincidental.'
               ]
             )
           ])
