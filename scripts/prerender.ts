@@ -223,10 +223,10 @@ async function main(): Promise<void> {
     navLabel: '404 Rift',
     seoTitle: '404 Uncharted Rift | The Uncharted Waystation',
     seoDescription:
-      'That subdomain or trail is unmapped—Nolan and Gwen Lennox welcome you to our 1980s fantasy Waystation to point you across the RaggieSoft universe.',
+      'That subdomain or trail is unmapped—Nolan, Gwen, and Mallory welcome you to our 1980s fantasy Waystation to point you across RaggieSoft.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-404-og.jpg`,
     ogImageAlt:
-      '404 Uncharted Dimensional Rift social card showing barefoot siblings Nolan and Gwen Lennox welcoming lost travelers to the Waystation courtyard under twin moons.'
+      '404 Uncharted Dimensional Rift social card showing barefoot Keepers Nolan and Gwen Lennox and Mallory Walsh welcoming lost travelers to the Waystation courtyard under twin moons.'
   };
   const app404Html = renderMithrilVnode(
     m(createWaystationApp({ initialPath: '/', force404Mode: true }))

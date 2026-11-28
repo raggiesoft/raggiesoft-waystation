@@ -9,9 +9,10 @@
  *     This TypeScript module holds the structured catalog of every live
  *     destination across the RaggieSoft Universe—organized as glowing stone
  *     archways inside **The Uncharted Waystation**—alongside the backstory of
- *     twenty-four-year-old **Nolan Lennox** (`5'7"`) and nineteen-year-old
- *     **Gwen Lennox** (`6'1"`), our barefoot brother and sister who tumbled off
- *     their studio sofa-bed into this 1980s Fantasy-Adventure courtyard!
+ *     twenty-four-year-old **Nolan Lennox** (`5'7"`), nineteen-year-old
+ *     **Gwen Lennox** (`6'1"`), and twenty-four-year-old **Mallory Walsh**
+ *     (`5'5"`), our barefoot Keepers who tumbled off Studio 205's full-sized
+ *     bed into this 1980s Fantasy-Adventure courtyard!
  *
  *   How Smart Typo / Rift Matching Works:
  *     Every `UniverseRealm` entry includes an array of `hintKeywords` (such as
@@ -291,20 +292,20 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
     navLabel: 'Courtyard Astrolabe',
     seoTitle: 'The Uncharted Waystation | RaggieSoft Universe Map',
     seoDescription:
-      'At the end of a long fantasy adventure, barefoot siblings Nolan and Gwen Lennox welcome you to their Waystation home and guide you across RaggieSoft.',
+      'Barefoot Keepers Nolan and Gwen Lennox and Mallory Walsh welcome you to their 1980s fantasy Waystation home and guide you across RaggieSoft.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-home-og.jpg`,
     ogImageAlt:
-      'The Uncharted Waystation social card showing barefoot brother Nolan Lennox (5\'7") and his taller sister Gwen Lennox (6\'1") hugging warmly beside the bronze Astrolabe and their four ergonomic forearm crutches under twin moons.'
+      'The Uncharted Waystation social card showing barefoot Nolan Lennox (5\'7"), his taller sister Gwen Lennox (6\'1"), and girlfriend Mallory Walsh (5\'5") beside the Three-Ring Bronze Astrolabe and their four ergonomic forearm crutches under twin moons.'
   },
   {
     path: '/guides',
-    navLabel: 'Nolan & Gwen’s Story',
-    seoTitle: 'Nolan & Gwen Lennox | Keepers of the Waystation',
+    navLabel: 'Meet the Keepers',
+    seoTitle: 'Nolan, Gwen & Mallory | Keepers of the Waystation',
     seoDescription:
-      'How barefoot siblings Nolan and Gwen Lennox journeyed on crutches across a 1980s fantasy world, claimed the Waystation as home, and never looked back.',
+      'How Nolan and Gwen Lennox and Mallory Walsh crossed barefoot into Vaeloria, woke the Three-Ring Astrolabe, and made Keepers’ Hall home.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-guides-og.jpg`,
     ogImageAlt:
-      'Nolan and Gwen Lennox social card showing the barefoot brother and sister cuddled closely under their green-and-navy plaid sofa blanket on a mossy stone courtyard bench with their forearm crutches resting beside them.'
+      'Nolan, Gwen, and Mallory social card showing the three barefoot Keepers cuddled closely under Grandpa Walter’s green-and-navy plaid wool blanket on a mossy stone courtyard bench with Nolan in the middle beside their forearm crutches.'
   },
   {
     path: '/realms',
