@@ -295,7 +295,7 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
       'Barefoot Keepers Nolan and Gwen Lennox and Mallory Walsh welcome you to their 1980s fantasy Waystation home and guide you across RaggieSoft.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-home-og.jpg`,
     ogImageAlt:
-      'The Uncharted Waystation social card showing barefoot Nolan Lennox (5\'7"), his taller sister Gwen Lennox (6\'1"), and girlfriend Mallory Walsh (5\'5") beside the Three-Ring Bronze Astrolabe and their four ergonomic forearm crutches under twin moons.'
+      'The Uncharted Waystation social card showing Nolan Lennox (5\'7"), his taller sister Gwen Lennox (6\'1"), and girlfriend Mallory Walsh (5\'5") on the Star-Court parapet beside the Three-Ring Bronze Astrolabe, glowing archway, and their single-tube Lofstrand forearm crutches under twin moons.'
   },
   {
     path: '/guides',
@@ -305,7 +305,7 @@ export const WAYSTATION_ROUTES: PageRouteSpec[] = [
       'How Nolan and Gwen Lennox and Mallory Walsh crossed barefoot into Vaeloria, woke the Three-Ring Astrolabe, and made Keepers’ Hall home.',
     ogImage: `${CDN_BASE}/raggiesoft-books/images/og/waystation/waystation-guides-og.jpg`,
     ogImageAlt:
-      'Nolan, Gwen, and Mallory social card showing the three barefoot Keepers cuddled closely under Grandpa Walter’s green-and-navy plaid wool blanket on a mossy stone courtyard bench with Nolan in the middle beside their forearm crutches.'
+      'Nolan, Gwen, and Mallory social card showing the three barefoot Keepers cuddled closely under Grandpa Walter’s green-and-navy plaid wool blanket on a mossy cedar log under Vaeloria’s twin moons with Nolan in the middle beside their forearm crutches.'
   },
   {
     path: '/realms',

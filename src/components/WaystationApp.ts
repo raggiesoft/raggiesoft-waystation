@@ -375,7 +375,7 @@ export function createWaystationApp(config: AppConfig): m.Component {
           m('figure.ws-figure', [
             m('img', {
               src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_sofa_blanket_bench.jpg`,
-              alt: 'On a carved mossy stone bench in a twin-moon 1980s fantasy courtyard, barefoot twenty-four-year-old Nolan Lennox (5-foot-7, navy t-shirt and jeans) sits right in the middle between his taller nineteen-year-old sister Gwen Lennox (6-foot-1, burgundy t-shirt and jeans) and his girlfriend Mallory Walsh (5-foot-5, copper-auburn ponytail with blue pen behind her right ear, thin silver wire-rimmed glasses, forest-green cardigan over cream tee, barefoot) under Grandpa Walter’s green-and-navy plaid wool blanket, with Nolan’s matte-silver and Gwen’s matte-charcoal Lofstrand forearm crutches leaning cleanly beside them',
+              alt: 'Under two glowing moons in a 1980s fantasy twilight hollow of silver-blue star-moss, barefoot twenty-four-year-old Nolan Lennox (5-foot-7, navy t-shirt and jeans) sits right in the middle on a mossy fallen cedar log between his taller nineteen-year-old sister Gwen Lennox (6-foot-1, burgundy t-shirt and jeans) and his girlfriend Mallory Walsh (5-foot-5, copper-auburn ponytail with blue pen behind her right ear, thin silver wire-rimmed glasses, forest-green cardigan over cream tee, barefoot) under Grandpa Walter’s green-and-navy plaid wool blanket, with Nolan’s matte-silver and Gwen’s matte-charcoal single-tube Lofstrand forearm crutches leaning cleanly beside them',
               width: 1200,
               height: 675,
               loading: 'lazy'
@@ -685,14 +685,14 @@ export function createWaystationApp(config: AppConfig): m.Component {
                   m('figure.ws-figure', [
                     m('img', {
                       src: `${CDN_BASE}/raggiesoft-books/images/scenes/waystation/nolan_and_gwen_waystation_hero.jpg`,
-                      alt: 'Barefoot 5-foot-7 stocky twenty-four-year-old Nolan Lennox in a navy t-shirt and jeans standing in the middle between his taller 6-foot-1 sister Gwen Lennox in a burgundy t-shirt and his 5-foot-5 girlfriend Mallory Walsh (copper-auburn ponytail with blue pen behind her right ear, thin silver wire-rimmed glasses, forest-green cardigan over cream tee) on smooth ancient flagstones inside a glowing 1980s fantasy courtyard, with Nolan’s matte-silver and Gwen’s matte-charcoal Lofstrand forearm crutches beside the Three-Ring Bronze Astrolabe under twin moons',
+                      alt: 'High on the rose-quartz Star-Court parapet of the Uncharted Waystation beneath two rising moons, twenty-four-year-old Nolan Lennox (5-foot-7, navy t-shirt and jeans, on his matte-silver single-tube Lofstrand forearm crutches) stands right in the middle between his taller nineteen-year-old sister Gwen Lennox (6-foot-1, burgundy t-shirt, on her matte-charcoal single-tube Lofstrand forearm crutches) and his girlfriend Mallory Walsh (5-foot-5, copper-auburn ponytail with blue pen behind her ear, thin silver wire-rimmed glasses, forest-green cardigan over cream tee, holding a runic slate) beside the Three-Ring Bronze Astrolabe and glowing stained-glass portal archways',
                       width: 1200,
                       height: 675,
                       fetchpriority: 'high'
                     }),
                     m(
                       'figcaption.ws-caption',
-                      'Barefoot beside the Three-Ring Bronze Astrolabe and their forearm crutches—Nolan (5\'7"), sister Gwen (6\'1"), and Mallory Walsh (5\'5") welcoming travelers.'
+                      'Standing together beside the Three-Ring Bronze Astrolabe and glowing archway—Nolan (5\'7"), sister Gwen (6\'1"), and Mallory Walsh (5\'5") welcoming travelers.'
                     )
                   ])
                 ])
